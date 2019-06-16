@@ -1,0 +1,23 @@
+1 - Crie o ambiente com o anaconda:
+    conda create --name [NOME] python=3
+
+2 - Ative o ambiente:
+    activate [NOME]
+
+3 - Instale o Django:
+    pip install django
+
+4 - crie um prjeto django:
+    django-admin startproject [NOME DO PROJETO] .
+
+5 - instale o create-react-app
+    npm install -g create-react-app
+
+6 - crie uma aplicação react:
+    create-react-app frontend
+
+7 - entre na pasta da aplicação:
+    cd frontend
+
+8 - ejete a aplicação
+    npm run eject
