@@ -7,8 +7,58 @@
 3 - Instale o Django:
     pip install django
 
-4 - crie um prjeto django:
+4 - crie um projeto django:
     django-admin startproject [NOME DO PROJETO] .
+
+4 - crie a aplicação core:
+    python manage.py startapp core
+
+9 - instale o django-cors-headers:
+    pip install django-cors-headers 
+
+10 - adicione a aplicação corsheaders na suas apis do arquivo settings.py
+    INSTALLED_APPS = [
+        ... # apis padroes
+
+        "corsheaders",  # added to solve CORS
+
+        ... # suas apis
+    ]
+
+11 -adicione os middlewares do corsheaders na constante MIDDLEWARE do arquivo settings.py
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # added to solve CORS
+    'django.middleware.common.CommonMiddleware',  # added to solve CORS
+    ... # middleware padrões
+
+
+]
+
+12 - altere a variavel dirs da constatnte TEMPLATES do arquivo settings.py 
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [os.path.join(BASE_DIR, 'frontend')]
+            ,
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                ],
+            },
+        },
+    ]
+
+14 - altere a constante STATICFILES_DIRS do seu arquivo settings.py:
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'book-frontend', "build", "static"),  # update the STATICFILES_DIRS
+    )
+
+13 - crie a constante CORS_ORIGIN_ALLOW_ALL no seu arquivo settings.py
+    CORS_ORIGIN_ALLOW_ALL = True # added to solve CORS
 
 5 - instale o create-react-app
     npm install -g create-react-app
@@ -19,5 +69,10 @@
 7 - entre na pasta da aplicação:
     cd frontend
 
-8 - ejete a aplicação
-    npm run eject
+9 - rode uma versão do frontend:
+    npm run build
+
+
+10 - crie a view que vai servir o index.html em core/view.py
+
+11 - adicione a url da view
