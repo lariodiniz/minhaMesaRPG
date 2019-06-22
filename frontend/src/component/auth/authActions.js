@@ -1,21 +1,22 @@
 import axios from 'axios'
-import consts from '../../common/templates/constants'
+import { constantes } from '../../constants'
+import {TOKEN_VALIDATED, USER_FETCHED} from './authConstants'
 
 export function login(values){
-    return submit(values, `${consts.OAPI_URL}/login`)
+    return submit(values, `${constantes.OAPI_URL}/login`)
 }
 
 export function signup(values){
-    return submit(values, `${consts.OAPI_URL}/sigup`)
+    return submit(values, `${constantes.OAPI_URL}/sigup`)
 }
 
 function submit(values, url){
 
     return dispatch => {
-        axios.post(url, values)
-            .then(resp => {
+         axios.post(url, values)
+            .then(resp => {                
                 dispatch([
-                    {type: 'USER_FETCHED', payload: resp.data}
+                    {type: USER_FETCHED, payload: resp.data}
                 ])
             })
             .catch( e => {
@@ -27,19 +28,21 @@ function submit(values, url){
 }
 
 export function logout(){
-    return { type: 'TOKEN_VALIDATED', payload: false}
+    return { type: TOKEN_VALIDATED, payload: false}
 }
 
 export function validateToken(token){
-    return dispatch => {
-        if(token) {
-            axios.post(`${consts.OAPI_URL}/validateToken`, {token})
+    
+     return async dispatch => {
+        if(token) {            
+            await axios.post(`${constantes.OAPI_URL}/validateToken`, {token})
             .then(resp => {
-                dispatch({type: 'TOKEN_VALIDATED', payload: resp.data.valid})
+                console.log(resp)
+                dispatch({type: TOKEN_VALIDATED, payload: resp.data.valid})
             })
-            .catch( e => dispatch({type: 'TOKEN_VALIDATED', payload: false}))
+            .catch( e => dispatch({type: TOKEN_VALIDATED, payload: false}))
         } else {
-            dispatch({ type: 'TOKEN_VALIDATED', payload: false})
+            dispatch({ type: TOKEN_VALIDATED, payload: false})
         }
 
     }

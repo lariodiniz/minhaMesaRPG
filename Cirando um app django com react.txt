@@ -76,3 +76,29 @@ MIDDLEWARE = [
 10 - crie a view que vai servir o index.html em core/view.py
 
 11 - adicione a url da view
+
+12  - Instalando as dependencias:
+    redux-thunk: npm install redux-thunk
+    redux: npm install --save redux
+    react-redux: npm install --save react-redux
+    react-router-dom: npm install --save react-router-dom
+    axios: npm install axios
+    redux-form: npm install --save redux-form
+    redux-multi: npm install redux-multi
+    redux-promise: npm install --save redux-promise
+    prop-types: npm install --save prop-types #para testes
+    enzyme:npm i --save-dev enzyme enzyme-adapter-react-16 enzyme-to-json jest jest-enzyme #para testes
+    check-prop-types:npm i --save-dev check-prop-types #para testes
+    moxios: npm i --save-dev moxios #para testes
+
+13 - Configurando ambiente de teste:
+    13.1:
+        import { configure } from 'enzyme';
+
+        import EnzymeAdapter from 'enzyme-adapter-react-16';
+        configure({ 
+            adapter: new EnzymeAdapter(),
+            disableLifecycleMethods: true
+        });     
+
+    
