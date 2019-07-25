@@ -101,4 +101,6 @@ MIDDLEWARE = [
             disableLifecycleMethods: true
         });     
 
-    
+14 - adicione o proxy no seu arquivo package.json antes da
+    opção dependencies para funcionar as requisições:
+        "proxy": "http://localhost:8000",

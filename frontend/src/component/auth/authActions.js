@@ -3,7 +3,7 @@ import { constantes } from '../../constants'
 import {TOKEN_VALIDATED, USER_FETCHED} from './authConstants'
 
 export function login(values){
-    return submit(values, `${constantes.OAPI_URL}/login`)
+    return submit(values, `${constantes.OAPI_URL}/login/`)
 }
 
 export function signup(values){
@@ -35,10 +35,11 @@ export function validateToken(token){
     
      return async dispatch => {
         if(token) {            
-            await axios.post(`${constantes.OAPI_URL}/validateToken`, {token})
+            await axios.post(`${constantes.OAPI_URL}/auth-jwt-verify/`, {token})
             .then(resp => {
-                console.log(resp)
-                dispatch({type: TOKEN_VALIDATED, payload: resp.data.valid})
+                console.log('aqui')
+                console.log(resp.data)
+                dispatch({type: TOKEN_VALIDATED, payload: resp.data})
             })
             .catch( e => dispatch({type: TOKEN_VALIDATED, payload: false}))
         } else {

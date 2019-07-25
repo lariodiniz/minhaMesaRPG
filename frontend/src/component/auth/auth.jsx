@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { login, signup } from './authActions'
 import Input from '../../common/form/inputAuth'
-import PropTypes from 'prop-types'
 
 import Header  from '../../common/templates/header/header'
 import Footer  from '../../common/templates/footer/footer'
@@ -23,7 +22,7 @@ class Auth extends Component {
     }
 
     onSubmit(values) {        
-        const { login, signup } = this.props        
+        const { login, signup } = this.props         
         this.state.loginMode ? login(values) : signup(values)
     }
 
@@ -32,17 +31,16 @@ class Auth extends Component {
         const { handleSubmit } = this.props
         return (
             <React.Fragment>
-            <Header />
-            <div className='background'></div>
+            <Header />            
             <div className='hero-body'>                                   
                     <div className='column is-4 is-offset-4'>                        
                         <div className='box panel_auth'>
                             <h3 className="title">Login</h3>
                             <form onSubmit={handleSubmit(v => this.onSubmit(v))}>
-                                <Field component={Input} type="input" name="name"
-                                    placeholder="Nome" icon='user' hide={loginMode} />
+                                <Field component={Input} type="input" name="username"
+                                    placeholder="Nome" icon='user' />
                                 <Field component={Input} type="email" name="email"
-                                    placeholder="E-mail" icon='mail'/>
+                                    placeholder="E-mail" icon='mail'hide={loginMode} />
                                 <Field component={Input} type="password" name="password"
                                     placeholder="Senha" icon='lock' />
                                 <Field component={Input} type="password" name="confirm_password"
@@ -61,17 +59,15 @@ class Auth extends Component {
                         </div>                  
                     
                 </div>
-                
+
             </div> 
-      
-            
+
             <Footer />
             </React.Fragment>
-                       
+
         )
     }
 }
-
 
 Auth = reduxForm({form: 'authForm'})(Auth)
 const mapDispatchToProps = dispatch => bindActionCreators({ login, signup },dispatch)
