@@ -20,9 +20,7 @@ function submit(values, url){
                 ])
             })
             .catch( e => {
-                e.response.data.errors.forEach(
-                    error => console.log(error)
-                )
+                console.log(e)
             })
     }
 }
@@ -37,8 +35,6 @@ export function validateToken(token){
         if(token) {            
             await axios.post(`${constantes.OAPI_URL}/auth-jwt-verify/`, {token})
             .then(resp => {
-                console.log('aqui')
-                console.log(resp.data)
                 dispatch({type: TOKEN_VALIDATED, payload: resp.data})
             })
             .catch( e => dispatch({type: TOKEN_VALIDATED, payload: false}))
