@@ -1,0 +1,1 @@
+from .user_model_test_case import UserModelTestCase

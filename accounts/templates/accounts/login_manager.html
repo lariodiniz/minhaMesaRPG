@@ -1,0 +1,62 @@
+{% extends "layout/base.html" %}
+
+{% load static %}
+{% load staticfiles %}
+
+{% block meta %}
+    <meta property="og:image" content="http://themepixels.me/azia/img/azia-social.png">
+    <meta property="og:image:secure_url" content="http://themepixels.me/azia/img/azia-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="600">
+{% endblock meta %}
+
+{% block title %}
+    Login
+{% endblock title %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}" media="screen" />
+{% endblock css %}
+
+{% block container %}
+<div class=" az-body background_img" style="background-image: url('{% static 'core/imgs/bg2.jpeg' %}');">
+  <div class="az-signin-wrapper">
+    <div class="az-card-signin">
+       <div class="az-signin-header">
+        	<img class="img-fluid" src="{% static 'core/imgs/logo.png' %}">
+          <br>     
+          <br> 
+          {% block messages %}
+            {% for message in messages %}
+            
+              <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+              </div>
+            {% endfor %}
+          {% endblock %} 
+           
+          <form name='login_form' action="" method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+             <label for="username" class="sr-only">Usuário</label> 
+            <input type="text" class="form-control" placeholder="Usuário"  name="username" id="username" >
+            </div><!-- form-group -->
+            <div class="form-group">
+              <label for="inputPassword" class="sr-only">Password</label>
+              <input id="password" name="password" type="password" class="form-control" placeholder="Senha" >
+            </div><!-- form-group -->
+            <button class="btn btn-az-primary btn-block" type="submit">Logar</button>
+          </form>
+        </div><!-- az-signin-header -->
+   
+      </div><!-- az-card-signin -->
+    </div><!-- az-signin-wrapper -->
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+{% endblock %}

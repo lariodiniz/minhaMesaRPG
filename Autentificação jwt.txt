@@ -1,0 +1,18 @@
+1 - instale a biblioteca django rest framework:
+    pip install djangorestframework-jwt
+
+2 - adicione as confirações no settings.py:
+    REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+3 - adicione as duas urls:
+    url(r'^login/', obtain_jwt_token),
+    url(r'^refresh-token/', refresh_jwt_token),

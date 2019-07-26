@@ -1,6 +1,10 @@
-const userKey = '_mymoney_user'
+import {TOKEN_VALIDATED, USER_FETCHED} from './authConstants'
 
-const INITIAL_STATE = {
+
+
+const userKey = '_mmrpg_user'
+
+export const INITIAL_STATE = {
     user: JSON.parse(localStorage.getItem(userKey)),
     validToken: false
 }
@@ -8,7 +12,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch(action.type){
-        case 'TOKEN_VALIDATED':
+        case TOKEN_VALIDATED:
             if(action.payload) {
                 return { ...state, validToken: true}
             } else {
@@ -16,7 +20,7 @@ export default (state = INITIAL_STATE, action) => {
                 return { ...state, validToken: false, user: null }
              
             }
-        case 'USER_FETCHED':
+        case USER_FETCHED:
                 localStorage.setItem(userKey, JSON.stringify(action.payload))
                 return { ...state, validToken: true, user: action.payload }
         default:

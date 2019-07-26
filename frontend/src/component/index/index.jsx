@@ -7,14 +7,14 @@ import './index.css'
 export default props => (
     <React.Fragment>
         <Header />
-        <div class='background'></div>
+        <div className='background'></div>
         <div className='hero-body'>        
             <div className='panel-block panel'>
                 <div className="container has-text-centered">                
-                    <h1 className="title">
+                    <h1 data-test='title' className="title">
                         Minha Mesa RPG
                     </h1>
-                    <h2 className="subtitle">
+                    <h2 data-test='subtitle' className="subtitle">
                        Seu Assistente para rolagens de dados.
                     </h2>
                 </div>
