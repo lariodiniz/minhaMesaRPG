@@ -1,7 +1,19 @@
 import React from 'react'
+import Menu from './dashboardMenu'
+import Mesas from '../mesas/mesas'
+import Personagens from '../personagens/personagens'
+
+import './dashboard.css'
+
 
 export default props => (        
-        <h1>Dashboard</h1>
+        <React.Fragment>
+                <main className='container '>
+                        <Menu />
+                        <Mesas />
+                        <Personagens />                   
+                </main>
+        </React.Fragment>
     
 )
 

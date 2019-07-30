@@ -3,8 +3,8 @@ import './appLogin.css'
 import { Switch, Route, Redirect } from 'react-router'
 
 import Dashboard from '../dashboard/dashboard'
-import Personagem from '../personagem/personagem'
-import Mesa from '../mesa/mesa'
+import Personagens from '../personagens/personagens'
+import Mesas from '../mesas/mesas'
 import Cadastro from '../cadastro/cadastro'
 
 
@@ -18,17 +18,13 @@ export default props => (
             </div>
         </div>
         <div className='column'>
-            <section className='section'>
-                
-                <Switch>
-                    <Route exact path='/Dashboard' component={Dashboard} />   
-                    <Route exact path='/Personagens' component={Personagem} />  
-                    <Route exact path='/Mesas' component={Mesa} />          
-                    <Route exact path='/Cadastro' component={Cadastro} />          
-                    <Redirect from='*' to='/Dashboard' />
-                </Switch> 
-                
-            </section>
+            <Switch>
+                <Route exact path='/Dashboard' component={Dashboard} />   
+                <Route exact path='/Personagens' component={Personagens} />  
+                <Route exact path='/Mesas' component={Mesas} />          
+                <Route exact path='/Cadastro' component={Cadastro} />          
+                <Redirect from='*' to='/Dashboard' />
+            </Switch> 
         </div>
     </div>
 )
