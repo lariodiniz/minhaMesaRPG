@@ -1,0 +1,14 @@
+.menu {
+    padding-top: 5px;
+    -webkit-box-shadow: 10px 10px 17px -20px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 17px -20px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 17px -20px rgba(0,0,0,0.75);
+    
+}
+
+.menu-label{
+    background-color: rgba(180, 81, 81, 0.856);
+    padding: 10px;
+    color:#fff;
+}
+

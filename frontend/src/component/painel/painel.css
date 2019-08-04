@@ -1,0 +1,10 @@
+.painel_dashboard {
+
+
+}
+
+.painel_dashboard .container .title{
+    background-color:rgba(180, 81, 81, 0.856);
+    padding: 5px;
+    margin-bottom: 5px;
+}

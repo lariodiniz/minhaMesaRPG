@@ -1,18 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux';
 
-import { applyMiddleware, createStore } from 'redux'
-import { Provider } from 'react-redux'
-import promise from 'redux-promise'
-import multi from 'redux-multi'
-import reducers from './main/reducers'
 
 import AppLoginOrAppLogof from './main/AppLoginOrAppLogof';
-
-//const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && __REDUX_DEVTOOLS_EXTENSION__()
-       
-const store = applyMiddleware(multi, promise)(createStore)(reducers)
+import { store } from './createStore';
 
 ReactDOM.render(
     <Provider store={store}>

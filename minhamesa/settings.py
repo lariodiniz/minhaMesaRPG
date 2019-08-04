@@ -1,6 +1,6 @@
 #coding: utf-8
 __author__ = "Lário dos Santos Diniz"
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 
 import os
 import dj_database_url
@@ -38,17 +38,18 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
+    'accounts',
     'core',
     'api',
 ]
 
-INSTALLED_APPS =  DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS + DEFAULT_APPS
 
 
-MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+MIDDLEWARE = [    
     'corsheaders.middleware.CorsMiddleware',  # added to solve CORS
-    'django.middleware.common.CommonMiddleware',  # added to solve CORS    
+    'django.middleware.common.CommonMiddleware',  # added to solve CORS   
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -138,7 +139,20 @@ DATABASES['default'].update(db_from_env)
 
 
 CORS_ORIGIN_ALLOW_ALL = True # added to solve CORS
+CORS_ALLOW_CREDENTIALS = True
 
+AUTH_USER_MODEL = 'accounts.User' 
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
 
 try:
     from .local_settings import *

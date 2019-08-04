@@ -1,19 +1,30 @@
 import React from 'react'
+import './appLogin.css'
 import { Switch, Route, Redirect } from 'react-router'
-/*
-export default props => (
-    
-   <div className='content-wrapper'>
-       <Switch>
-           <Route exact path='/' component={Dashboard} />
-           <Route path='/login' component={BillingCycle} />
-           <Redirect from='*' to='/' />
-       </Switch>
-   </div>
-)
-*/
+
+import Dashboard from '../dashboard/dashboard'
+import Personagens from '../personagens/personagens'
+import Mesas from '../mesas/mesas'
+import Cadastro from '../cadastro/cadastro'
+
+
+import Menu from '../menuLeft/menuLeft'
 
 export default props => (
-    
-    <h1>Index</h1>
- )
+    <div className="columns">
+        <div className='column is-narrow'>
+            <div class="box_menu">
+                <Menu />            
+            </div>
+        </div>
+        <div className='column'>
+            <Switch>
+                <Route exact path='/Dashboard' component={Dashboard} />   
+                <Route exact path='/Personagens' component={Personagens} />  
+                <Route exact path='/Mesas' component={Mesas} />          
+                <Route exact path='/Cadastro' component={Cadastro} />          
+                <Redirect from='*' to='/Dashboard' />
+            </Switch> 
+        </div>
+    </div>
+)

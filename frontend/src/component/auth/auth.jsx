@@ -8,6 +8,7 @@ import Input from '../../common/form/inputAuth'
 
 import Header  from '../../common/templates/header/header'
 import Footer  from '../../common/templates/footer/footer'
+import Button from '../../common//templates/button/button'
 
 class Auth extends Component {
     
@@ -21,7 +22,7 @@ class Auth extends Component {
     }
 
     onSubmit(values) {        
-        const { login, signup } = this.props        
+        const { login, signup } = this.props
         this.state.loginMode ? login(values) : signup(values)
     }
 
@@ -30,42 +31,40 @@ class Auth extends Component {
         const { handleSubmit } = this.props
         return (
             <React.Fragment>
-            <Header />
-            <div class='background'></div>
+            <Header />            
             <div className='hero-body'>                                   
                     <div className='column is-4 is-offset-4'>                        
                         <div className='box panel_auth'>
-                            <h3 class="title">Login</h3>
+                            <h3 className="title">Login</h3>
                             <form onSubmit={handleSubmit(v => this.onSubmit(v))}>
-                                <Field component={Input} type="input" name="name"
-                                    placeholder="Nome" icon='user' hide={loginMode} />
+                                <Field component={Input} type="input" name="username"
+                                    placeholder="Nome" icon='user' />
                                 <Field component={Input} type="email" name="email"
-                                    placeholder="E-mail" icon='mail'/>
+                                    placeholder="E-mail" icon='mail'hide={loginMode} />
                                 <Field component={Input} type="password" name="password"
                                     placeholder="Senha" icon='lock' />
                                 <Field component={Input} type="password" name="confirm_password"
                                     placeholder="Confirmar Senha" icon='lock' hide={loginMode} />
-                                <button type="submit"
-                                    className="button is-rounded is-pulled-right">
-                                    {loginMode ? 'Entrar' : 'Registrar'}
-                                </button>                                                    
+
+                                <Button type="submit"
+                                    classes="is-rounded is-pulled-right"
+                                    buttonText={loginMode ? 'Entrar' : 'Registrar'}/>
                             </form>  
                             <br />
-                            <button className="button is-link  is-inverted is-outlined" onClick={() => this.changeMode()}>
-                                {loginMode ? 'Novo usuário? Registrar aqui!' :
-                                'Já é cadastrado? Entrar aqui!'}
-                            </button> 
-                        </div>
-                    
+                            <Button classes="is-link is-inverted is-outlined"
+                                click={() => this.changeMode()}
+                                buttonText={loginMode ? 'Novo usuário? Registrar aqui!' :
+                                    'Já é cadastrado? Entrar aqui!'} />
+                                
+                        </div>                  
                     
                 </div>
-                
+
             </div> 
-      
-            
+
             <Footer />
             </React.Fragment>
-                       
+
         )
     }
 }
