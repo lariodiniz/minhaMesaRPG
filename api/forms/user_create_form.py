@@ -8,9 +8,8 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 from accounts.models import User
 
-class UserCreateForm(forms.Form):
-    name = forms.CharField(max_length=200, label='Nome')
-    login = forms.CharField(max_length=50, label='Login')    
+class UserCreateForm(forms.Form):    
+    username = forms.CharField(max_length=50, label='Username')    
     email = forms.EmailField(label='Email')
     senha = forms.CharField(widget=forms.PasswordInput(), label='Senha')
     conf_senha = forms.CharField(widget=forms.PasswordInput(), label='Confirma Senha')    
@@ -21,11 +20,11 @@ class UserCreateForm(forms.Form):
             raise ValidationError("There is already a user with this email.")
         return email
 
-    def clean_login(self):
-        login = self.cleaned_data['login']
-        if User.objects.filter(username=login).exists():
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if User.objects.filter(username=username).exists():
             raise ValidationError("There is already a user with this login.")
-        return login
+        return username
 
     def clean(self):
         senha = self.cleaned_data['senha']
@@ -49,9 +48,8 @@ class UserCreateForm(forms.Form):
     def save(self):
         try:
             usuario = User()
-            usuario.username = self.cleaned_data['login'] 
-            usuario.email = self.cleaned_data['email']
-            usuario.name = self.cleaned_data['name'] 
+            usuario.username = self.cleaned_data['username'] 
+            usuario.email = self.cleaned_data['email']            
             usuario.is_staff = False
             usuario.is_active = True 
             usuario.set_password(self.cleaned_data['senha'])

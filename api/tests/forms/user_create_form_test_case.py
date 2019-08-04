@@ -13,7 +13,7 @@ class UserCreateFormTestCase(TestCase):
     def test_fields_form(self):
         """tests the form fields"""
         form = UserCreateForm()        
-        filds = ['name', 'login', 'email', 'senha', 'conf_senha']
+        filds = ['username', 'email', 'senha', 'conf_senha']
     
         for fild in filds:
             self.assertTrue(fild in form.fields,
@@ -21,14 +21,14 @@ class UserCreateFormTestCase(TestCase):
 
     def test_valid_form(self):
         """check if the form is creating in user"""
-        data = {'name': 'teste', 'login':'testeLogin', 'email': 'teste@teste.com', 'senha':'A@e123456', 'conf_senha':'A@e123456'}        
+        data = {'username':'testeLogin', 'email': 'teste@teste.com', 'senha':'A@e123456', 'conf_senha':'A@e123456'}        
         form = UserCreateForm(data=data)
         self.assertTrue(form.is_valid(), 'error validating form with invalid user')
         retorno, id =  form.save()
         user = User.objects.get(username='testeLogin')
         self.assertEquals(User.objects.count(), 1, 'check if you created a user')
         self.assertEquals(user.pk, id, 'check user id created')
-        self.assertEquals(user.name,'teste', 'check name created')
+        #self.assertEquals(user.name,'teste', 'check name created')
         self.assertEquals(user.email,'teste@teste.com', 'check email created')
 
     def test_invalid_form_existing_email(self):
@@ -37,7 +37,7 @@ class UserCreateFormTestCase(TestCase):
         user.set_password('123')
         user.save()
 
-        data = {'name': 'teste', 'login':'testeLogin', 'email': 'teste@teste.com', 'senha':'A@e123456', 'conf_senha':'A@e123456'}
+        data = {'username':'testeLogin', 'email': 'teste@teste.com', 'senha':'A@e123456', 'conf_senha':'A@e123456'}
         form = UserCreateForm(data=data) 
         self.assertFalse(form.is_valid(), 'error validating form with invalid user')
 
@@ -47,37 +47,37 @@ class UserCreateFormTestCase(TestCase):
         user.set_password('123')
         user.save()
 
-        data = {'name': 'teste', 'login':'testeLogin', 'email': 'teste@teste.com', 'senha':'A@e123456', 'conf_senha':'A@e123456'}
+        data = {'username':'testeLogin', 'email': 'teste@teste.com', 'senha':'A@e123456', 'conf_senha':'A@e123456'}
         form = UserCreateForm(data=data) 
         self.assertFalse(form.is_valid(), 'error validating form with invalid user')
 
     def test_invalid_form_existing_different_passwords(self):
         """check if the form is not creating a user with date wrongs: different passwords"""    
-        data = {'name': 'teste', 'login':'testeLogin', 'email': 'teste@teste.com', 'senha':'A@e123456', 'conf_senha':'A@ert123456'}
+        data = {'username':'testeLogin', 'email': 'teste@teste.com', 'senha':'A@e123456', 'conf_senha':'A@ert123456'}
         form = UserCreateForm(data=data) 
         self.assertFalse(form.is_valid(), 'error validating form with invalid user')
 
     def test_invalid_form_existing_password_less_six(self):
         """check if the form is not creating a user with date wrongs: passwords less than six"""    
-        data = {'name': 'teste', 'login':'testeLogin', 'email': 'teste@teste.com', 'senha':'A@e12', 'conf_senha':'A@ert12'}
+        data = {'username':'testeLogin', 'email': 'teste@teste.com', 'senha':'A@e12', 'conf_senha':'A@ert12'}
         form = UserCreateForm(data=data) 
         self.assertFalse(form.is_valid(), 'error validating form with invalid user')
 
     def test_invalid_form_existing_password_more_eighteen(self):
         """check if the form is not creating a user with date wrongs: passwords more than eighteen"""    
-        data = {'name': 'teste', 'login':'testeLogin', 'email': 'teste@teste.com', 'senha':'A@e1234567891011121314151617', 'conf_senha':'A@e1234567891011121314151617'}
+        data = {'username':'testeLogin', 'email': 'teste@teste.com', 'senha':'A@e1234567891011121314151617', 'conf_senha':'A@e1234567891011121314151617'}
         form = UserCreateForm(data=data) 
         self.assertFalse(form.is_valid(), 'error validating form with invalid user')    
 
     def test_invalid_form_existing_password_no_lowercase_letter(self):
         """check if the form is not creating a user with date wrongs: no lowercase letter"""    
-        data = {'name': 'teste', 'login':'testeLogin', 'email': 'teste@teste.com', 'senha':'A1@23456', 'conf_senha':'A1@23456'}
+        data = {'username':'testeLogin', 'email': 'teste@teste.com', 'senha':'A1@23456', 'conf_senha':'A1@23456'}
         form = UserCreateForm(data=data) 
         self.assertFalse(form.is_valid(), 'error validating form with invalid user')
 
     def test_invalid_form_existing_password_no_capital_letter(self):
         """check if the form is not creating a user with date wrongs: no capital letter"""    
-        data = {'name': 'teste', 'login':'testeLogin', 'email': 'teste@teste.com', 'senha':'a1@23456', 'conf_senha':'a1@23456'}
+        data = {'username':'testeLogin', 'email': 'teste@teste.com', 'senha':'a1@23456', 'conf_senha':'a1@23456'}
         form = UserCreateForm(data=data) 
         self.assertFalse(form.is_valid(), 'error validating form with invalid user')
     #ToDo: não deixa criar usuario com senhas sem numeros
@@ -85,5 +85,5 @@ class UserCreateFormTestCase(TestCase):
 
     def test_invalid_form(self):
         """check if the form is not creating a user with date wrongs"""    
-        data = {'name': 'teste', 'login':'testeLogin', 'email': 'teste@teste.com', 'senha':'A@e123456', 'conf_senha':'A@e123456'}
+        data = {'username':'testeLogin', 'email': 'teste@teste.com', 'senha':'A@e123456', 'conf_senha':'A@e123456'}
         form = UserCreateForm(data=data)

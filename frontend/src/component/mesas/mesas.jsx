@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import Painel from '../painel/painel'
+import ItemPainel from '../painel/itemPainel'
 
 const MESAS_ = [
     {'nome': 'Mesa 01', 'description': 'descrição da mesa 1'},
@@ -15,33 +16,17 @@ class Mesas extends Component {
     
     constructor(props) {
         super(props)
-        this.state = {loginMode: true}
+        this.state = {mesa: MESAS_}
     }
 
-    _render_mesa(title, description){
-        return (
-            `<div className="card">
-                <header className="card-header">
-                    <p className="card-header-title">${title}</p>
-                </header>
-                <div className="card-content">
-                    <div className="content">
-                        <p>${description}</p>
-                    </div>
-                </div>
-                <footer className="card-footer">
-                    <a href="#" className="card-footer-item">Entrar</a>
-                </footer>
-            </div>`
-        )
-    }
     _render_mesas(){
-        return MESAS_.map(mesa =>{
-            let a = this._render_mesa(mesa.nome, mesa.description)
-            console.log(a) 
-            return a
-        }            
-        ).join()
+        
+        return this.state.mesa.map(mesa =>{            
+            
+            return  <ItemPainel title={mesa.nome} description={mesa.description} />
+        }
+                    
+        )
         
     }
 
@@ -51,9 +36,9 @@ class Mesas extends Component {
         return (
             <Painel title='Mesas'>
                 <div className='columns'>
-                    <div className='column is-two-fifths'>
+                    
                     {this._render_mesas()}                        
-                    </div>
+                    
                 </div>
             </Painel>
         )

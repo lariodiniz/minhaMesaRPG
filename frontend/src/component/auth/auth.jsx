@@ -22,7 +22,7 @@ class Auth extends Component {
     }
 
     onSubmit(values) {        
-        const { login, signup } = this.props         
+        const { login, signup } = this.props
         this.state.loginMode ? login(values) : signup(values)
     }
 

@@ -10,8 +10,9 @@ export default props => (
         <React.Fragment>
                 <main className='container '>
                         <Menu />
+                        <Personagens /> 
                         <Mesas />
-                        <Personagens />                   
+                                          
                 </main>
         </React.Fragment>
     

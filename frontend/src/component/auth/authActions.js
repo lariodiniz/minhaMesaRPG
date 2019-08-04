@@ -6,8 +6,8 @@ export function login(values){
     return submit(values, `${constantes.OAPI_URL}/login/`)
 }
 
-export function signup(values){
-    return submit(values, `${constantes.OAPI_URL}/sigup`)
+export function signup(values){    
+    return submit(values, `${constantes.OAPI_URL}/api/user/`)
 }
 
 function submit(values, url){
@@ -19,8 +19,14 @@ function submit(values, url){
                     {type: USER_FETCHED, payload: resp.data}
                 ])
             })
-            .catch( e => {
-                console.log(e)
+            .catch( (e) => {
+                console.log(e.response.data)
+                let obj = e.response.data
+                for (var key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                      console.log(key + ": " + obj[key]);
+                    }
+                  }
             })
     }
 }
