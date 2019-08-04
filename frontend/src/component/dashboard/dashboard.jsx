@@ -11,7 +11,7 @@ export default props => (
                 <main className='container '>
                         <Menu />
                         <Personagens /> 
-                        <Mesas />
+                        {/*<Mesas />*/}
                                           
                 </main>
         </React.Fragment>

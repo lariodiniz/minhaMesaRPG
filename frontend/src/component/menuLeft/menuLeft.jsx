@@ -50,12 +50,12 @@ class MenuLeft extends Component {
                         <ul className="menu-list">
                             <MenuItem path='Dashboard' label='Dashboard' icon='browsers'/>
                             <MenuItem path='Personagens' label='Personages' icon='contacts'/>
-                            <MenuItem path='Mesas' label='Mesas' icon='paper'/>
+                            {/*<MenuItem path='Mesas' label='Mesas' icon='paper'/>*/}
                         </ul>
                         <p className="menu-label">Geral</p>
                         <ul className="menu-list">
-                            <MenuItem path='Cadastro' label='Cadastro' icon='person'/>
-                            <a href='#' onClick={() =>this.Logoff()}>
+                            {/*<MenuItem path='Cadastro' label='Cadastro' icon='person'/>*/}
+                            <a href='/' onClick={() =>this.Logoff()}>
                             <Icon icon='home' /><span>Sair</span>
                                 </a>
                         </ul>  
