@@ -22,16 +22,16 @@ class Ficha extends Component {
 
         if (sistema === '') {
             return (
-                <div>
-                <button onClick={() => this.define_sistema('teste')}>a</button>
-                <EscolherSistema click={this.define_sistema.bind(this)}/>
-                </div>
+                <React.Fragment>
+                    <br/>
+                    <EscolherSistema click={this.define_sistema.bind(this)}/>
+                </React.Fragment>                
             )
         }
         else{
             return (
 
-                <p>ficha</p>
+                <p>Sistema {sistema}</p>
             )
         }
 
