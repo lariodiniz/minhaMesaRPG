@@ -18,8 +18,7 @@ class UserView(APIView):
         if serializer.is_valid():
             user = serializer.save()
             if user:
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-        print(serializer.errors)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)        
         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 user_view = UserView.as_view()
