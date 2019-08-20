@@ -1,18 +1,28 @@
 import React, { Component } from 'react'
+import axios from 'axios'
+import { constantes } from '../../constants'
+
 //import { connect } from 'react-redux'
 //import { bindActionCreators } from 'redux'
-
-const SISTEMAS = [
-    {id:1, nome:'Tormenta20', descricao: 'Tormenta20 blablabla', site:'https://www.jamboeditora.com.br'},
-    {id:2, nome:'Tagmar', descricao: 'Tormenta20 blablabla', site:'https://www.tagmar.com.br'},
-]
 
 class EscolherSistema extends Component {
 
 
     constructor(props) {
         super(props)
-        this.state = {sistemas: SISTEMAS}
+        this.state = {sistemas: []}
+    }
+
+    componentWillMount(){
+        
+
+        
+        axios.get(`${constantes.API_URL}/api/system/`).then((resp) =>{
+            this.setState( {...this.state, sistemas:resp.data})
+            
+        })
+
+        
     }
     
     render_sistema(){
@@ -23,10 +33,11 @@ class EscolherSistema extends Component {
                     <div className="card">
                         <div className="card-content">     
                             <div className="content">  
-                                <h3>{sistema.nome}</h3>  
+                                <h3>{sistema.name}</h3>  
                                 <p>{sistema.descricao}</p>
                                 <br />
-                                <p>mais informações em <a href={sistema.site} rel="noopener noreferrer" target='_blank'>{sistema.site}</a>.</p>
+                                <p>mais informações em:</p>
+                                <p><a href={sistema.site} rel="noopener noreferrer" target='_blank'>{sistema.site}</a>.</p>
                             </div>
                         </div>
                     </div>                    

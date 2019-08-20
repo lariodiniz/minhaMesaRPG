@@ -14,7 +14,7 @@ import Menu from '../menuLeft/menuLeft'
 export default props => (
     <div className="columns">
         <div className='column is-narrow'>
-            <div class="box_menu">
+            <div className="box_menu">
                 <Menu />            
             </div>
         </div>
