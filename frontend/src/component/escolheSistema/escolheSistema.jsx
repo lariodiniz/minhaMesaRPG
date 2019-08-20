@@ -28,7 +28,7 @@ class EscolherSistema extends Component {
     render_sistema(){
         return this.state.sistemas.map((sistema=>{
             return (
-                <div className='column' onClick={() => this.props.click(sistema.id)}>
+                <div className='column'>
                     
                     <div className="card">
                         <div className="card-content">     
@@ -40,6 +40,10 @@ class EscolherSistema extends Component {
                                 <p><a href={sistema.site} rel="noopener noreferrer" target='_blank'>{sistema.site}</a>.</p>
                             </div>
                         </div>
+                        <footer className="card-footer">
+                            <button onClick={() => this.props.click(sistema.id)} 
+                                className="card-footer-item">selecionar</button>
+                        </footer>
                     </div>                    
                 </div>
                 )

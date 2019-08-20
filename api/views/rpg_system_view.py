@@ -17,8 +17,8 @@ class RPGSystemView(APIView):
     """
     permission_classes = (AllowAny,)
 
-    def get(self, request, format=None):
-        print(request.headers)
+    def get(self, request, format=None):    
+        
         rpg_system = RPGSystem.objects.all()
         serializer = RPGSystemSerializer(rpg_system, many=True)
         return Response(serializer.data)
