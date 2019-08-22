@@ -33,35 +33,42 @@ class Ficha3DeT extends Component {
     constructor(props) {
         super(props)
         
-        let _ficha = _Modelo
+        let _ficha = {..._Modelo }
         _ficha.sistemaId = props.idSistema
-        this.state = {ficha: _ficha}
+        this.state = {modelo: _ficha}
 
     }
 
-    primeiro_passo(nome, pontos){        
-        let _ficha = this.state.ficha
+    primeiro_passo(nome, pontos){
+        let _ficha = {...this.state.modelo }
         _ficha.passo = 1
         _ficha.ficha.nome = nome
-        _ficha.ficha.nome = pontos
-        this.setState( {...this.state, ficha:_ficha.passo})
+        _ficha.ficha.pontos = pontos
+        this.setState( {...this.state, modelo:_ficha})
     }
 
     render() {
-        let passo  = this.state.ficha.passo;
+        let passo  = this.state.modelo.passo;
+
         if (passo === 0){
-            return <Conceito proximoPasso={this.primeiro_passo.bind(this)}
-                    nome={this.state.ficha.nome}
-                    pontos={this.state.ficha.pontos}
-                    />
+            return <Conceito proximoPasso={this.primeiro_passo.bind(this)} />
         }
         else
         {
             return (
-                <React.Fragment >
-                    <p>{this.state.ficha.sistemaId}</p>
-                    <p>{this.state.ficha.nome}</p>
-                </React.Fragment>
+                <section className='section'>
+                    <div className='container'>
+                        <div className="columns">
+                            <div className="column">
+                                <p><strong>Nome: </strong>{this.state.modelo.ficha.nome}</p>
+                            </div>
+                            <div className="column">
+                                <p><strong>Pontos: </strong>{this.state.modelo.ficha.pontos}</p>
+                            </div>
+                        </div>
+                    </div>                    
+                    
+                </section> 
             )
         }
 
