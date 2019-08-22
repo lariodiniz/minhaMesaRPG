@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import EscolherSistema from '../escolheSistema/escolheSistema'
+import Ficha3DET from '../ficha3DeT/ficha3DeT'
 //import { connect } from 'react-redux'
 //import { bindActionCreators } from 'redux'
 
@@ -8,19 +9,18 @@ class Ficha extends Component {
     
     constructor(props) {
         super(props)
-        this.state = {sistema: ''}
+        this.state = {sistema: {id:'', name:''}}
     }
 
-    define_sistema(sist){
-        this.setState( {...this.state, sistema:sist})
+    define_sistema(id, sist){
+        this.setState( {...this.state, sistema:{id:id, name:sist}})
     }
 
 
     render() {
         let { sistema } = this.state;
-        console.log(this.state.sistema)
 
-        if (sistema === '') {
+        if (sistema.name === '') {
             return (
                 <React.Fragment>
                     <br/>
@@ -29,17 +29,22 @@ class Ficha extends Component {
             )
         }
         else{
-            return (
+            if (sistema.name === '3D&T') {
+                return (
 
-                <p>Sistema {sistema}</p>
-            )
+                    <Ficha3DET idSistema={sistema.id} />
+                )    
+            }
+            else {
+                return (
+
+                    <p>Sistema Não configurado</p>
+                )
+            }
+            
         }
 
     }
 }
-
-
-//const mapDispatchToProps = dispatch => bindActionCreators({ login, signup },dispatch)
-//export default connect(null, mapDispatchToProps)(Mesas)
 
 export default Ficha

@@ -28,8 +28,7 @@ class EscolherSistema extends Component {
     render_sistema(){
         return this.state.sistemas.map((sistema=>{
             return (
-                <div className='column'>
-                    
+                <div className='column' key={sistema.id}>                    
                     <div className="card">
                         <div className="card-content">     
                             <div className="content">  
@@ -41,7 +40,7 @@ class EscolherSistema extends Component {
                             </div>
                         </div>
                         <footer className="card-footer">
-                            <button onClick={() => this.props.click(sistema.id)} 
+                            <button onClick={() => this.props.click(sistema.id, sistema.name)} 
                                 className="card-footer-item">selecionar</button>
                         </footer>
                     </div>                    
