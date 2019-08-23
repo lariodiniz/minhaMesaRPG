@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import Conceito from './conceito'
+import Caracteristicas from './caracteristicas'
+
+import './ficha3DeT.css'
 
 const _Modelo = {
     sistemaId : 0,   
@@ -47,6 +50,16 @@ class Ficha3DeT extends Component {
         this.setState( {...this.state, modelo:_ficha})
     }
 
+    render_parteinferior(){
+        let passo  = this.state.modelo.passo;
+        let ponto  = this.state.modelo.ficha.pontos;
+
+        if (passo === 1){
+            return <Caracteristicas pontos={ponto} proximoPasso={this.primeiro_passo.bind(this)} />
+        }
+        
+    }
+
     render() {
         let passo  = this.state.modelo.passo;
 
@@ -54,7 +67,7 @@ class Ficha3DeT extends Component {
             return <Conceito proximoPasso={this.primeiro_passo.bind(this)} />
         }
         else
-        {
+        {            
             return (
                 <section className='section'>
                     <div className='container'>
@@ -67,7 +80,9 @@ class Ficha3DeT extends Component {
                             </div>
                         </div>
                     </div>                    
-                    
+                    <div className='container'>
+                        {this.render_parteinferior()}
+                    </div>
                 </section> 
             )
         }

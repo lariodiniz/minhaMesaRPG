@@ -76,7 +76,7 @@ class Conceito extends Component {
     <section className='section'>
         {this.render_mensagem()}
         <div className="container">                
-            <h1 className="title ">Conceito</h1>
+            <h1 className="title title3DEt">Conceito</h1>
         </div>
         
         <div className='container'>
