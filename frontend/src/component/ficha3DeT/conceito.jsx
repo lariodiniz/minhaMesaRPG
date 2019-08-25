@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Button from '../../common/templates/button/button'
+import Panel from './panel'
 import Input from '../../common/templates/input/input'
 
 class Conceito extends Component {
@@ -47,28 +47,26 @@ class Conceito extends Component {
 
         let nome = this.state.modelo.ficha.nome
         let pontos = this.state.modelo.ficha.pontos
-    return (        
-    <div className='container'>
-            <h2 className="title3DEt">Conceito</h2>
-            <div className="columns">
-                <div className="column is-four-fifths">
-                    <Input  id='nome' nome='Nome'  placeholder='escreva o nome' 
-                        valor={nome}
-                        onChange={this.changeNome.bind(this)}
-                        />
-                </div>
-                <div className="column">
-                <Input  id='pontos' nome='Pontos'  type='number'
-                        valor={pontos}
-                        onChange={this.changePontos.bind(this)}
-                        />                                        
-                </div>                
+    return (       
+        <Panel 
+            titulo='Conceito'
+            state={this.state} 
+            passoAnterior={this.props.passoAnterior}
+            proximoPasso={this.props.proximoPasso}>
+            <div className="column is-four-fifths">
+                <Input  id='nome' nome='Nome'  placeholder='escreva o nome' 
+                    valor={nome}
+                    onChange={this.changeNome.bind(this)}
+                    />
             </div>
-            <Button
-                classes="is-primary is-rounded is-pulled-right"
-                buttonText='Próximo' click={() => this.proximo()}/>
-        
-    </div>    
+            <div className="column">
+            <Input  id='pontos' nome='Pontos'  type='number'
+                    valor={pontos}
+                    onChange={this.changePontos.bind(this)}
+                    />                                        
+            </div> 
+        </Panel> 
+    
 )
 }    
 }

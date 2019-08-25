@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Button from '../../common/templates/button/button'
+import Panel from './panel'
 
 class Caracteristicas extends Component {
 
@@ -8,11 +8,8 @@ class Caracteristicas extends Component {
         this.state = props.state
         this._caracter = ['For', 'Hab', 'Res','Arm', 'PdF']
         
-    }    
+    } 
     
-
-    
-
     add(evento){
         this.props.mensagem('')
         let state = {...this.state}
@@ -122,34 +119,17 @@ class Caracteristicas extends Component {
     }
 
     render() {
-
-    return (        
-    <div className='container'>
-        
-        <div className="container">                
-            <h2 className="title3DEt">Caracteristicas       
-                <span className="tag is-white is-pulled-right">Faltam: {this.state.modelo.ficha.pontos - this.state.modelo.ficha.pontos_gastos}</span>
-            </h2>     
-        </div>
-        
-        <div className='container'>
-            <div className="columns">
-                {this.render_caracteristicas()}
-            </div>
-            <div className="columns">
-                <div className="column">
-                    <Button
-                    classes="is-warning is-rounded"
-                    buttonText='Voltar' click={() => this.props.passoAnterior(this.state)}/>
-                    <Button
-                    classes="is-primary is-rounded is-pulled-right"
-                    buttonText='Próximo' click={() => this.props.proximoPasso(this.state)}/>
-                </div>
-            </div>
-        </div>
-    </div>    
-)
-}    
+        return (   
+            <Panel 
+                titulo='Caracteristicas'  
+                botaoAnterior={true}
+                state={this.state} 
+                passoAnterior={this.props.passoAnterior}
+                proximoPasso={this.props.proximoPasso}>
+                    {this.render_caracteristicas()}
+            </Panel>
+        )
+    }    
 }
 
 

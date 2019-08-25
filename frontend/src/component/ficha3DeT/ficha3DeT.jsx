@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Conceito from './conceito'
 import Caracteristicas from './caracteristicas'
+import Vantagens from './vantagem'
 import MostraFicha from './mostraFicha'
 import { modelo } from './modelo'
 
@@ -63,6 +64,17 @@ class Ficha3DeT extends Component {
                         setaModelo={this.setaModelo.bind(this)}
                             
                     />
+            case 2:
+                    return <Vantagens 
+                            state={this.state} 
+                            proximoPasso={this.proximo_passo.bind(this)} 
+                            passoAnterior={this.passo_anterior.bind(this)} 
+                            mensagem={this.define_mensagem.bind(this)} 
+                            setaModelo={this.setaModelo.bind(this)}
+                                
+                        />
+
+                    
             default:
                 console.log(this.state)
           } 
@@ -121,9 +133,17 @@ class Ficha3DeT extends Component {
                     <div className="modal-background"></div>
                     <div className="modal-card">
                         <header className="modal-card-head">
-                            <button onClick={()=> {this.definePasso(0); this.some_modal()}} className="button">Conceito</button>
-                            <button onClick={()=> {this.definePasso(1); this.some_modal()}} className="button">Caracteristicas</button>
-                            
+                            <div className='columns'>
+                                <div className='column'>
+                                    <button onClick={()=> {this.definePasso(0); this.some_modal()}} className="button">Conceito</button>
+                                </div>
+                                <div className='column'>
+                                    <button onClick={()=> {this.definePasso(1); this.some_modal()}} className="button">Caracteristicas</button>        
+                                </div>
+                                <div className='column'>
+                                <button onClick={()=> {this.definePasso(2); this.some_modal()}} className="button">Vantagens</button>        
+                                </div>
+                            </div>
                         </header>
                         <section className="modal-card-body">
                             <MostraFicha state={this.state} />
