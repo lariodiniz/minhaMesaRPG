@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
 import Painel from '../painel/painel'
 import ItemPainel from '../painel/itemPainel'
@@ -30,8 +28,6 @@ class Personagens extends Component {
     }
 
     render() {
-        const { loginMode } = this.state
-        const { handleSubmit } = this.props
         return (
             <Painel title='Personagens'>
                 <div className='columns'>

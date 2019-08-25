@@ -1,150 +1,117 @@
 import React, { Component } from 'react'
 import Button from '../../common/templates/button/button'
-import Input from '../../common/templates/input/input'
 
 class Caracteristicas extends Component {
 
     constructor(props){
         super(props);
-        this.state = { 
-            mensagem:'',
-            pontos: props.pontos,
-            tipo: this._define_pessoa(props.pontos),
-            caracteristicas: {
-            forca : 0,
-            habilidade: 0,
-            resistencia: 0,
-            armadura: 0,
-            poderDeFoco: 0,
-            pontosDeVida: 0,
-            pontosDeMagia:0,
-            pontosDeExperiencia:0
-        },
-        caracteristicas_selecionadas: {
-            forca : 0,
-            habilidade: 0,
-            resistencia: 0,
-            armadura: 0,
-            poderDeFoco: 0
-        },
-    
-    }
+        this.state = props.state
+        this._caracter = ['For', 'Hab', 'Res','Arm', 'PdF']
         
     }    
-    _define_pessoa(pontos){
-        if (pontos <= 4){
-            return 0
-        }
-        else if (pontos <= 5){
-            return 1
-        }
-        else if (pontos <= 7){
-            return 2
-        }
-        else if (pontos <10){
-            return 3
-        }
-        else {
-            return 4
-        }
-    }
-
-    proximo() {
-        console.log('proximo')
-    }
-
-    anterior() {
-        console.log('anterior')
-    }
     
-    changeNome(event){ 
-        let state = {...this.state}
-        state.nome = event.target.value
-        state.corInput.nome = 'primary'
-        state.mensagem = ''
-        this.setState(state)
-        
-    }
 
-    changePontos(event){   
-        let state = {...this.state}
-        state.pontos = event.target.value
-        state.corInput.pontos = 'primary'
-        state.mensagem = ''
-        this.setState(state)
-        
-    }
     
-    render_mensagem() {
-        let { mensagem } = this.state
-        console.log(mensagem)
-        if (mensagem !== ''){
-            return ( 
-                <div className="container">                
-                    <div className="notification is-warning">
-                        <p>{mensagem}</p>
-                    </div>
-                </div>
-            )
-        }
-        else{
-            return ''
-        }
-    }
 
     add(evento){
-        let numero = evento.target.value
-        let forca_sel  = this.state.caracteristicas_selecionadas.forca
-        let num = numero - forca_sel         
-        let p = this.state.pontos - num  
-        console.log(this.state.pontos)
-        console.log(num)
-        console.log(p)
+        this.props.mensagem('')
+        let state = {...this.state}
+        let campo = evento.target.name
+        let numero = evento.target.value        
+        let pontos = this.state.modelo.ficha.pontos
+        let gastos = this.state.modelo.ficha.pontos_gastos
+        let anterior = 0
 
-        if (p < 0){
-            let state = {...this.state}            
-            state.mensagem = 'Você não tem pontos suficientes!'
-            this.setState(state)
+        switch (campo) {
+            case this._caracter[0]:
+                anterior = this.state.modelo.ficha.caracteristicas.forca
+                state.modelo.ficha.caracteristicas.forca = 0
+                break;
+            case this._caracter[1]:
+                anterior = this.state.modelo.ficha.caracteristicas.habilidade 
+                state.modelo.ficha.caracteristicas.habilidade = 0
+                break;
+            case this._caracter[2]:
+                anterior = this.state.modelo.ficha.caracteristicas.resistencia 
+                state.modelo.ficha.caracteristicas.resistencia = 0
+                break;
+            case this._caracter[3]:
+                anterior = this.state.modelo.ficha.caracteristicas.armadura 
+                state.modelo.ficha.caracteristicas.armadura = 0
+                break;
+            case this._caracter[4]:
+                anterior = this.state.modelo.ficha.caracteristicas.poderDeFoco 
+                state.modelo.ficha.caracteristicas.poderDeFoco = 0
+                break;
+            default:
+              console.log('Sorry.');
+          }
+
+        gastos -= anterior;
+        pontos -= gastos;
+
+        state.modelo.ficha.pontos_gastos -= anterior
+ 
+        if (pontos < numero){
+            console.log(pontos)
+            evento.target.checked = false
+            this.props.mensagem('Você não tem pontos suficientes!')
+            
         }
         else {
-            let nome = evento.target.name
-            if (nome==='For'){ 
-                let state = {...this.state}            
-                state.caracteristicas_selecionadas.forca = parseInt(numero)
-                state.caracteristicas.forca = parseInt(numero)
-                state.pontos = parseInt(p)
-                
-                this.setState(state)         
-    
-            }
-            console.log(this.state)
+            
+            
+
+            switch (campo) {
+                case this._caracter[0]:
+                    state.modelo.ficha.caracteristicas.forca = parseInt(numero)
+                    break;
+                case this._caracter[1]:
+                    state.modelo.ficha.caracteristicas.habilidade = parseInt(numero)
+                    break;
+                case this._caracter[2]:
+                    state.modelo.ficha.caracteristicas.resistencia = parseInt(numero)                    
+                    break;
+                case this._caracter[3]:
+                    state.modelo.ficha.caracteristicas.armadura = parseInt(numero)
+                    break;
+                case this._caracter[4]:
+                    state.modelo.ficha.caracteristicas.poderDeFoco = parseInt(numero)
+                    break;
+                default:
+                  console.log('Sorry.');
+              }       
+                   
+              
+              state.modelo.ficha.pontos_gastos += parseInt(numero)                
+              
+              
         }
 
+        this.props.setaModelo(state)
+
     }
+
+
 
     render_radios(tipo){
         
         let mapa = [1,2,3,4,5]
         return mapa.map(item =>{            
-            if (this.state.tipo === 0 && item > 1){
-                return  <input disabled className="radioButton" type="radio" name={tipo}/>    
-            }
-            else {
-                return  <input className="radioButton" type="radio" name={tipo} value={item} onClick={(e) => this.add(e)}/>
-            }            
+            return  <input key={item} className="radioButton" type="radio" name={tipo} value={item} onClick={(e) => this.add(e)}/>
+                     
             }
         )
     }
 
     render_caracteristicas(){
-        let caracter = ['For', 'Hab', 'Res','Arm', 'PdF']
-        return caracter.map(c => {
-            let nome  = c
+        
+        return this._caracter.map(nome => {            
             return (
-                <div className="column">
+                <div key={nome} className="column">
                 <div className="control">
                     <label className="radio">
-                        <strong>{c}: </strong>
+                        <strong>{nome}: </strong>
                         {this.render_radios(nome)}
                     </label>                        
                 </div>
@@ -157,21 +124,30 @@ class Caracteristicas extends Component {
     render() {
 
     return (        
-    <section className='section'>
-        {this.render_mensagem()}
+    <div className='container'>
+        
         <div className="container">                
-            <h1 className="title title3DEt">Caracteristicas</h1>
+            <h2 className="title3DEt">Caracteristicas       
+                <span className="tag is-white is-pulled-right">Faltam: {this.state.modelo.ficha.pontos - this.state.modelo.ficha.pontos_gastos}</span>
+            </h2>     
         </div>
         
         <div className='container'>
             <div className="columns">
                 {this.render_caracteristicas()}
             </div>
-            <Button
-                classes="is-primary is-rounded is-pulled-right"
-                buttonText='Próximo' click={() => this.proximo()}/>
+            <div className="columns">
+                <div className="column">
+                    <Button
+                    classes="is-warning is-rounded"
+                    buttonText='Voltar' click={() => this.props.passoAnterior(this.state)}/>
+                    <Button
+                    classes="is-primary is-rounded is-pulled-right"
+                    buttonText='Próximo' click={() => this.props.proximoPasso(this.state)}/>
+                </div>
+            </div>
         </div>
-    </section>    
+    </div>    
 )
 }    
 }

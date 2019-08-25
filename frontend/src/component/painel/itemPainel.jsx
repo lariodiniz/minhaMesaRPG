@@ -15,7 +15,7 @@ export default props => (
             </div>
         </div>
         <footer className="card-footer">
-            <a href="#" className="card-footer-item">Entrar</a>
+            <button href="#" className="card-footer-item">Entrar</button>
         </footer>
     </div>
 </div>

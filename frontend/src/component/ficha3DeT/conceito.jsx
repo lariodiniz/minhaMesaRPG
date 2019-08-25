@@ -6,26 +6,21 @@ class Conceito extends Component {
 
     constructor(props){
         super(props);
-        this.state = { nome: '', pontos: 0, corInput:{nome:'primary', pontos:'primary'}, mensagem:''}
-        
+        this.state = props.state
     }    
 
-    proximo(nome, pontos) {
-
-        if ((!nome) || (nome <=0 )){
-            let state = {...this.state}
-            state.corInput.nome = 'warning'
-            state.mensagem = 'Informe um nome para o seu personagem!'
-            this.setState(state)
+    proximo() {
+        let nome = this.state.modelo.ficha.nome ? this.state.modelo.ficha.nome : ''
+        let pontos = this.state.modelo.ficha.pontos ? this.state.modelo.ficha.pontos : 0
+        
+        if (nome === ''){
+            this.props.mensagem('Informe um nome para o seu personagem!')
         }
-        else if ((!pontos) || (pontos <=0 )){
-            let state = {...this.state}
-            state.corInput.pontos = 'warning'
-            state.mensagem = 'Informe um nome os pontos do personagem!'
-            this.setState(state)
+        else if (pontos <=0 ){
+            this.props.mensagem('Informe os pontos para o seu personagem!')
         }
         else {
-            this.props.proximoPasso(nome, pontos)
+            this.props.proximoPasso(this.state)
         }
 
         
@@ -34,71 +29,46 @@ class Conceito extends Component {
     
     changeNome(event){ 
         let state = {...this.state}
-        state.nome = event.target.value
-        state.corInput.nome = 'primary'
-        state.mensagem = ''
-        this.setState(state)
+        state.modelo.ficha.nome = event.target.value
+        state.modelo.mensagem = ''
+        this.props.setaModelo(state)
         
     }
 
     changePontos(event){   
         let state = {...this.state}
-        state.pontos = event.target.value
-        state.corInput.pontos = 'primary'
-        state.mensagem = ''
-        this.setState(state)
-        
-    }
-    
-    render_mensagem() {
-        let { mensagem } = this.state
-        console.log(mensagem)
-        if (mensagem !== ''){
-            return ( 
-                <div className="container">                
-                    <div className="notification is-warning">
-                        <p>{mensagem}</p>
-                    </div>
-                </div>
-            )
-        }
-        else{
-            return ''
-        }
-    }
+        state.modelo.ficha.pontos = parseInt(event.target.value)
+        state.modelo.mensagem = ''
+        this.props.setaModelo(state)
+    }  
+
 
     render() {
-    
-    let { nome, pontos } = this.state
-    
 
+        let nome = this.state.modelo.ficha.nome
+        let pontos = this.state.modelo.ficha.pontos
     return (        
-    <section className='section'>
-        {this.render_mensagem()}
-        <div className="container">                
-            <h1 className="title title3DEt">Conceito</h1>
-        </div>
-        
-        <div className='container'>
+    <div className='container'>
+            <h2 className="title3DEt">Conceito</h2>
             <div className="columns">
                 <div className="column is-four-fifths">
-                    <Input  id='nome' nome='Nome' cor={this.state.corInput.nome} placeholder='escreva seu nome' 
-                        value={this.state.nome}
+                    <Input  id='nome' nome='Nome'  placeholder='escreva o nome' 
+                        valor={nome}
                         onChange={this.changeNome.bind(this)}
                         />
                 </div>
                 <div className="column">
-                <Input  id='pontos' nome='Pontos' cor={this.state.corInput.pontos} type='number'
-                        value={this.state.pontos}
+                <Input  id='pontos' nome='Pontos'  type='number'
+                        valor={pontos}
                         onChange={this.changePontos.bind(this)}
                         />                                        
                 </div>                
             </div>
             <Button
                 classes="is-primary is-rounded is-pulled-right"
-                buttonText='Próximo' click={() => this.proximo(nome, pontos)}/>
-        </div>
-    </section>    
+                buttonText='Próximo' click={() => this.proximo()}/>
+        
+    </div>    
 )
 }    
 }
