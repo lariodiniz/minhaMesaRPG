@@ -59,8 +59,6 @@ class Caracteristicas extends Component {
             
         }
         else {
-            
-            
 
             switch (campo) {
                 case this._caracter[0]:
@@ -70,7 +68,9 @@ class Caracteristicas extends Component {
                     state.modelo.ficha.caracteristicas.habilidade = parseInt(numero)
                     break;
                 case this._caracter[2]:
-                    state.modelo.ficha.caracteristicas.resistencia = parseInt(numero)                    
+                    state.modelo.ficha.caracteristicas.resistencia = parseInt(numero)  
+                    state.modelo.ficha.caracteristicas.pontosDeVida = parseInt(numero) * 5 
+                    state.modelo.ficha.caracteristicas.pontosDeMagia = parseInt(numero) * 5                    
                     break;
                 case this._caracter[3]:
                     state.modelo.ficha.caracteristicas.armadura = parseInt(numero)

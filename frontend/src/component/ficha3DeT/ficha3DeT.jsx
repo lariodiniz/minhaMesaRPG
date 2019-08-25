@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import Conceito from './conceito'
 import Caracteristicas from './caracteristicas'
+import MostraFicha from './mostraFicha'
 import { modelo } from './modelo'
+
 import './ficha3DeT.css'
 
 
@@ -13,12 +15,23 @@ class Ficha3DeT extends Component {
     constructor(props) {
         super(props)
         
-        let _modelo= { ...modelo }
+        let _modelo= JSON.parse(JSON.stringify(modelo))
         _modelo.sistemaId = props.idSistema
         this.state = {modelo: _modelo}
     }
 
+    componentWillMount(){        
+        let _modelo= JSON.parse(JSON.stringify(modelo))
+        _modelo.sistemaId = this.props.idSistema
+        this.setaModelo({modelo: _modelo})        
+    }
 
+
+    definePasso(passo){   
+        let state = { ...this.state }     
+        state.modelo.passo = passo
+        this.setState(state)
+    }
     passo_anterior(state){        
         state.modelo.passo -= 1
         this.setState(state)
@@ -31,10 +44,7 @@ class Ficha3DeT extends Component {
 
     render_parteinferior(){
         let passo  = this.state.modelo.passo;
-        let ponto  = this.state.modelo.ficha.pontos;
-
-
-
+        
         switch (passo) {
             case 0:
                 return <Conceito 
@@ -94,18 +104,54 @@ class Ficha3DeT extends Component {
         }
     }
 
+    mostra_modal(){
+        document.getElementById('modal').classList.add("is-active"); 
+    }
+
+    some_modal(){
+        document.getElementById('modal').classList.remove("is-active");   
+    }
+
+    render_modal(){
+        return (
+            <React.Fragment>
+                <button onClick={this.mostra_modal} className="button button_relative"><i className={`icon ion-md-search`}></i></button>
+
+                <div id="modal" className="modal">
+                    <div className="modal-background"></div>
+                    <div className="modal-card">
+                        <header className="modal-card-head">
+                            <button onClick={()=> {this.definePasso(0); this.some_modal()}} className="button">Conceito</button>
+                            <button onClick={()=> {this.definePasso(1); this.some_modal()}} className="button">Caracteristicas</button>
+                            
+                        </header>
+                        <section className="modal-card-body">
+                            <MostraFicha state={this.state} />
+                        </section>
+                        <footer className="modal-card-foot">
+                            
+                            <button onClick={this.some_modal} className="button">Sair</button>
+                        </footer>
+                    </div>
+                </div>
+            </React.Fragment>
+        )
+    }
+
     render() {
             return (
-                <section className='section'>
-                    {this.render_mensagem()}
-                    <h1 className="title title3DEt">{`3D&T`}</h1>
-                    <div className="columns">
-                        <div className="column">
-                        {this.render_parteinferior()}
+                <React.Fragment>
+                    <section className='section'>
+                        {this.render_mensagem()}
+                        <h1 className="title title3DEt">{`3D&T`}</h1>
+                        <div className="columns">
+                            <div className="column">
+                            {this.render_parteinferior()}
+                            </div>
                         </div>
-                        </div>
-                    
-                </section> 
+                    </section> 
+                    {this.render_modal()}  
+                </React.Fragment>
             )
         
 
