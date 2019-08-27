@@ -121,6 +121,7 @@ class Caracteristicas extends Component {
     render() {
         return (   
             <Panel 
+                icon={this.props.icon}
                 titulo='Caracteristicas'  
                 botaoAnterior={true}
                 state={this.state} 

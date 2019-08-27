@@ -6,57 +6,51 @@ import Button from '../../common/templates/button/button'
 import Icon from '../../common/templates/icon/icon'
 import Panel from './panel'
 
-class Vantagem extends Component {
+class Desdesvantagem extends Component {
 
     constructor(props){
         super(props);
-        this.state = {state:props.state, vantagens:[]}
+        this.state = {state:props.state, desvantagens:[]}
     }    
 
     componentWillMount(){
 
-        axios.get(`${constantes.API_URL}/api/tresDeT/vantagens/`).then((resp) =>{
-            let vantagens = []
+        axios.get(`${constantes.API_URL}/api/tresDeT/desvantagens/`).then((resp) =>{
+            let desvantagens = []
             resp.data.map((item) => {
-                let vantagem = {vantagem:item, visualizar:false, selecionada:false}
-                vantagens.push(vantagem)
+                let desvantagem = {desvantagem:item, visualizar:false, selecionada:false}
+                desvantagens.push(desvantagem)
             })
-            this.setState( {...this.state, vantagens:vantagens})
+            this.setState( {...this.state, desvantagens:desvantagens})
         })
     }
 
-    vantagem_selecionada(item){ 
+    desvantagem_selecionada(item){ 
 
         let state = this.state
-        let pontos = state.state.modelo.ficha.pontos - state.state.modelo.ficha.pontos_gastos;
-        
-        if (pontos < item.vantagem.cost){
-            this.props.mensagem('Você não tem pontos suficientes!')
-        }
-        else {
-            state.state.modelo.ficha.vantagens.push(item.vantagem.name+' ('+item.vantagem.cost+')')            
-            state.state.modelo.ficha.pontos -= item.vantagem.cost;
-            item.selecionada = true;
-            this.props.setaModelo(state.state)
-        }
+        state.state.modelo.ficha.desvantagens.push(item.desvantagem.name+' ('+item.desvantagem.cost+')')            
+        state.state.modelo.ficha.pontos -= item.desvantagem.cost;
+        item.selecionada = true;
+        this.props.setaModelo(state.state)
+ 
     }
 
-    render_vantagens_linha(){
+    render_desvantagens_linha(){
 
-        let vantagens = this.state.vantagens ? this.state.vantagens : []
-        return vantagens.map((item) =>{            
+        let desvantagens = this.state.desvantagens ? this.state.desvantagens : []
+        return desvantagens.map((item) =>{            
                 if (item.visualizar && !item.selecionada){
-                    let vantagem = item.vantagem
+                    let desvantagem = item.desvantagem
                     return  (
-                        <tr key={vantagem.id}> 
-                            <th>{vantagem.name}</th>
-                            <th>{vantagem.description}</th>
-                            <th>{vantagem.cost}</th>
+                        <tr key={desvantagem.id}> 
+                            <th>{desvantagem.name}</th>
+                            <th>{desvantagem.description}</th>
+                            <th>{desvantagem.cost}</th>
                             <th>
                                 <Button 
                                 
                                 classes='is-success' 
-                                click={()=>{this.vantagem_selecionada(item)}}>
+                                click={()=>{this.desvantagem_selecionada(item)}}>
                                     <Icon icon='add-circle-outline'/>   
                                 </Button>
                                 
@@ -74,13 +68,13 @@ class Vantagem extends Component {
     filtra(event) {
 
         let palavras = event.target.value.toUpperCase().split(' ');
-        let vantagens = this.state.vantagens
+        let desvantagens = this.state.desvantagens
 
         for (let i = 0; i < palavras.length; i++) {            
             let regexp = new RegExp(palavras[i]);           
             if (i === 0) {
-                vantagens.forEach((item) => {
-                    let nome = item.vantagem.name.toUpperCase()
+                desvantagens.forEach((item) => {
+                    let nome = item.desvantagem.name.toUpperCase()
 
                     if (regexp.test(nome)) {
                         item.visualizar = true;                        
@@ -91,8 +85,8 @@ class Vantagem extends Component {
 
             }
             else {
-                vantagens.filter(item => item.visualizar).forEach((item) => {
-                    let nome = item.vantagem.name.toUpperCase()
+                desvantagens.filter(item => item.visualizar).forEach((item) => {
+                    let nome = item.desvantagem.name.toUpperCase()
 
                     if (regexp.test(nome)) {
                         item.visualizar = true;                        
@@ -103,10 +97,10 @@ class Vantagem extends Component {
             }
         }
 
-        this.setState( {...this.state, vantagens:vantagens})
+        this.setState( {...this.state, desvantagens:desvantagens})
     }
 
-    render_vantagens(){
+    render_desvantagens(){
 
         
         return (
@@ -121,7 +115,7 @@ class Vantagem extends Component {
                         </tr>
                     </thead> 
                     <tbody>
-                        {this.render_vantagens_linha()}
+                        {this.render_desvantagens_linha()}
                     </tbody>
                 </table>
             </div>
@@ -134,12 +128,12 @@ class Vantagem extends Component {
                 <div className="column">
                     <div className="columns">
                         <div className="column">
-                            <Input onChange={(event)=>{this.filtra(event)}} id='buscaVantagem' nome='Pesquisar'  placeholder='Pesquisa vantagem'/>
+                            <Input onChange={(event)=>{this.filtra(event)}} id='buscadesvantagem' nome='Pesquisar'  placeholder='Pesquisa desvantagem'/>
                         </div>
                     </div>
                     <div className="columns">
                         <div className="column">
-                            {this.render_vantagens()}
+                            {this.render_desvantagens()}
                         </div>
                     </div>    
                 </div>            
@@ -151,7 +145,7 @@ class Vantagem extends Component {
         return (        
             <Panel 
                 icon={this.props.icon}
-                titulo='Vantagens'  
+                titulo='Desvantagens'  
                 botaoAnterior={true}
                 state={this.state.state} 
                 passoAnterior={this.props.passoAnterior}
@@ -163,5 +157,5 @@ class Vantagem extends Component {
 }
 
 
-export default Vantagem
+export default Desdesvantagem
 

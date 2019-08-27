@@ -1,14 +1,6 @@
 import React, { Component } from 'react'
-import Conceito from './conceito'
-import Caracteristicas from './caracteristicas'
-import { modelo } from './modelo'
-import './ficha3DeT.css'
-
-
-
 
 class MostraFicha extends Component {
-
 
     constructor(props) {
         super(props)
@@ -19,7 +11,24 @@ class MostraFicha extends Component {
         this.setState(this.props.state)        
     }
 
+    render_vantagens(){
+        let vantagens = this.state.modelo.ficha.vantagens ? this.state.modelo.ficha.vantagens : []
+        return vantagens.map((vantagem) =>{            
+            return  (
+                <p key={vantagem}>{vantagem}</p>
+                )
+            })
+    }
 
+    render_desvantagens(){
+        let desvantagens = this.state.modelo.ficha.desvantagens ? this.state.modelo.ficha.desvantagens : []
+        
+        return desvantagens.map((desvantagem) =>{            
+            return  (
+                <p key={desvantagem}>{desvantagem}</p>
+                )
+            })
+    }    
     
     render(){
         return (
@@ -103,7 +112,7 @@ class MostraFicha extends Component {
                                         <h2 className="title3DEt">Vantagens</h2>
                                         <div className="columns">
                                             <div className="column">
-                                                <p></p>
+                                                {this.render_vantagens()}
                                             </div>
                                         </div>                                                    
                                     </div>                                                
@@ -113,7 +122,7 @@ class MostraFicha extends Component {
                                         <h2 className="title3DEt">Desvantagens</h2>
                                         <div className="columns">
                                             <div className="column">
-                                                <p></p>
+                                            {this.render_desvantagens()}
                                             </div>
                                         </div>
                                     </div>                                                

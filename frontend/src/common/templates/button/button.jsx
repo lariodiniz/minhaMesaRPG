@@ -21,8 +21,9 @@ const button =  props => {
                 data-test='button'
                 className={`button ${classes}`}
                 onClick={click}
-                >
+                >                    
                 {buttonText}
+                {props.children} 
             </button> 
             )       
     }

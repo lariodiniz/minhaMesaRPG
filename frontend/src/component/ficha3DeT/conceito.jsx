@@ -49,6 +49,7 @@ class Conceito extends Component {
         let pontos = this.state.modelo.ficha.pontos
     return (       
         <Panel 
+            icon={this.props.icon}
             titulo='Conceito'
             state={this.state} 
             passoAnterior={this.props.passoAnterior}
