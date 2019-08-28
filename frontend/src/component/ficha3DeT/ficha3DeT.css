@@ -36,3 +36,7 @@
 .ficha{
     border:solid 1px rgb(115, 189, 250);
 }
+
+.topo_ficha{
+    padding-top:0px;
+}

@@ -5,12 +5,23 @@ import Conceito from './conceito'
 import Caracteristicas from './caracteristicas'
 import Vantagens from './vantagem'
 import Desvantagens from './desvantagem'
+import Magias from './magias'
 import MostraFicha from './mostraFicha'
+import ToquesFinais from './toquesFinais'
 import If from '../../common/utils/if'
 import { modelo } from './modelo'
 
 import './ficha3DeT.css'
 
+
+const ICONES = [
+    'book',
+    'body',
+    'remove-circle',
+    'add-circle',
+    'color-wand',
+    'checkmark'
+]
 class Ficha3DeT extends Component {
 
     constructor(props) {
@@ -33,6 +44,7 @@ class Ficha3DeT extends Component {
         state.modelo.passo = passo
         this.setState(state)
     }
+
     passo_anterior(state){        
         state.modelo.passo -= 1
         this.setState(state)
@@ -45,11 +57,10 @@ class Ficha3DeT extends Component {
 
     render_parteinferior(){
         let passo  = this.state.modelo.passo;
-        
         switch (passo) {
             case 0:
                 return <Conceito 
-                    icon='book'
+                    icon={ICONES[passo]}
                     state={this.state} 
                     proximoPasso={this.proximo_passo.bind(this)} 
                     mensagem={this.define_mensagem.bind(this)} 
@@ -58,7 +69,7 @@ class Ficha3DeT extends Component {
                 
             case 1:
                 return <Caracteristicas 
-                        icon='body'
+                        icon={ICONES[passo]}
                         state={this.state} 
                         proximoPasso={this.proximo_passo.bind(this)} 
                         passoAnterior={this.passo_anterior.bind(this)} 
@@ -67,27 +78,45 @@ class Ficha3DeT extends Component {
                             
                     />
             case 2:
-                    return <Desvantagens 
-                            icon='remove-circle'
-                            state={this.state} 
-                            proximoPasso={this.proximo_passo.bind(this)} 
-                            passoAnterior={this.passo_anterior.bind(this)} 
-                            mensagem={this.define_mensagem.bind(this)} 
-                            setaModelo={this.setaModelo.bind(this)}
-                                
-                        />
+                return <Desvantagens 
+                        icon={ICONES[passo]}
+                        state={this.state} 
+                        proximoPasso={this.proximo_passo.bind(this)} 
+                        passoAnterior={this.passo_anterior.bind(this)} 
+                        mensagem={this.define_mensagem.bind(this)} 
+                        setaModelo={this.setaModelo.bind(this)}
+                            
+                    />
             case 3:
-                    return <Vantagens 
-                            icon='add-circle'
-                            state={this.state} 
-                            proximoPasso={this.proximo_passo.bind(this)} 
-                            passoAnterior={this.passo_anterior.bind(this)} 
-                            mensagem={this.define_mensagem.bind(this)} 
-                            setaModelo={this.setaModelo.bind(this)}
-                                
-                        />
-
-                    
+                return <Vantagens 
+                        icon={ICONES[passo]}
+                        state={this.state} 
+                        proximoPasso={this.proximo_passo.bind(this)} 
+                        passoAnterior={this.passo_anterior.bind(this)} 
+                        mensagem={this.define_mensagem.bind(this)} 
+                        setaModelo={this.setaModelo.bind(this)}
+                            
+                    />
+            case 4:
+                return <Magias 
+                        icon={ICONES[passo]}
+                        state={this.state} 
+                        proximoPasso={this.proximo_passo.bind(this)} 
+                        passoAnterior={this.passo_anterior.bind(this)} 
+                        mensagem={this.define_mensagem.bind(this)} 
+                        setaModelo={this.setaModelo.bind(this)}
+                            
+                    />
+            case 5:
+                return <ToquesFinais 
+                        icon={ICONES[passo]}
+                        state={this.state} 
+                        proximoPasso={this.proximo_passo.bind(this)} 
+                        passoAnterior={this.passo_anterior.bind(this)} 
+                        mensagem={this.define_mensagem.bind(this)} 
+                        setaModelo={this.setaModelo.bind(this)}
+                            
+                    />
             default:
                 return <MostraFicha state={this.state} />
           } 
@@ -98,7 +127,6 @@ class Ficha3DeT extends Component {
     }
 
     define_mensagem(mens){
-        console.log(mens)
         let state = {...this.state}            
         state.modelo.mensagem = mens
         this.setaModelo(state)   
@@ -151,30 +179,44 @@ class Ficha3DeT extends Component {
                                     <Button 
                                         classes='is-info' 
                                         click={()=> {this.definePasso(0); this.some_modal()}} >
-                                        <Icon icon='book'/>
+                                        <Icon icon={ICONES[0]}/>
                                     </Button>
                                 </div>
                                 <div className='column'>
                                     <Button 
                                         classes='is-info' 
                                         click={()=> {this.definePasso(1); this.some_modal()}} >
-                                        <Icon icon='body'/>
+                                        <Icon icon={ICONES[1]}/>
                                     </Button>
                                 </div>
                                 <div className='column'>
                                     <Button 
                                         classes='is-info' 
                                         click={()=> {this.definePasso(2); this.some_modal()}} >
-                                        <Icon icon='remove-circle'/>
+                                        <Icon icon={ICONES[2]}/>
                                     </Button>
                                 </div>
                                 <div className='column'>
                                     <Button 
                                         classes='is-info' 
                                         click={()=> {this.definePasso(3); this.some_modal()}} >
-                                        <Icon icon='add-circle'/>
+                                        <Icon icon={ICONES[3]}/>
                                     </Button>
-                                </div>                                
+                                </div>  
+                                <div className='column'>
+                                    <Button 
+                                        classes='is-info' 
+                                        click={()=> {this.definePasso(4); this.some_modal()}} >
+                                        <Icon icon={ICONES[4]}/>
+                                    </Button>
+                                </div>  
+                                <div className='column'>
+                                    <Button 
+                                        classes='is-info' 
+                                        click={()=> {this.definePasso(5); this.some_modal()}} >
+                                        <Icon icon={ICONES[5]}/>
+                                    </Button>
+                                </div>                                                                                             
                             </div>
                         </header>
                         <section className="modal-card-body">
@@ -195,7 +237,7 @@ class Ficha3DeT extends Component {
                 <React.Fragment>
                     <section className='section'>
                         {this.render_mensagem()}
-                        <If test={this.state.modelo.passo < 5}>
+                        <If test={this.state.modelo.passo < 6}>
                             <h1 className="title title3DEt">{`3D&T`}</h1>
                         </If>
                         <div className="columns">

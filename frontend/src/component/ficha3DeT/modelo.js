@@ -17,9 +17,9 @@ export const modelo = {
         },
         vantagens: [],
         desvantagens: [],
-        tiposDeDano: [],
+        tiposDeDano: '',
         magiasConhecidas: [],
-        dinheiroEItens: [],
+        dinheiroEItens: '',
         Historia: ''
     }
 }

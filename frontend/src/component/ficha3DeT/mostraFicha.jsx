@@ -28,15 +28,25 @@ class MostraFicha extends Component {
                 <p key={desvantagem.id}>{(desvantagem.name+' ('+desvantagem.cost+')')}</p>
                 )
             })
-    }    
+    }   
+    
+    render_magias(){
+        let magias = this.state.modelo.ficha.magiasConhecidas ? this.state.modelo.ficha.magiasConhecidas : []
+        
+        return magias.map((magia) =>{            
+            return  (
+                <p key={magia.id}>{(magia.name)}</p>
+                )
+            })
+    }
     
     render(){
         return (
 
                 <div className="container ficha">
                     <h1 className="title title3DEt">{`3D&T`}</h1>
-                    <div className="section">
-                        <div className="columns">
+                    <div className="section topo_ficha">
+                        <div className="columns topo_ficha">
                             <div className="column is-three-fifths">
                                 <p><strong>Nome: </strong>{this.state.modelo.ficha.nome}</p>
                             </div>
@@ -122,7 +132,7 @@ class MostraFicha extends Component {
                                         <h2 className="title3DEt">Desvantagens</h2>
                                         <div className="columns">
                                             <div className="column">
-                                            {this.render_desvantagens()}
+                                                {this.render_desvantagens()}
                                             </div>
                                         </div>
                                     </div>                                                
@@ -134,7 +144,7 @@ class MostraFicha extends Component {
                                         <h2 className="title3DEt">Tipos de Dano</h2>
                                         <div className="columns">
                                             <div className="column">
-                                                <p></p>
+                                                <p>{this.state.modelo.ficha.tiposDeDano}</p>
                                             </div>
                                         </div>                                                    
                                     </div>
@@ -144,7 +154,7 @@ class MostraFicha extends Component {
                                         <h2 className="title3DEt">Magias conhecidas</h2>
                                         <div className="columns">
                                             <div className="column">
-                                                <p></p>
+                                            {this.render_magias()}
                                             </div>
                                         </div>                                                    
                                     </div>
@@ -154,7 +164,7 @@ class MostraFicha extends Component {
                                         <h2 className="title3DEt">Dinheiro e itens</h2>
                                         <div className="columns">
                                             <div className="column">
-                                                <p></p>
+                                                <p>{this.state.modelo.ficha.dinheiroEItens}</p>
                                             </div>
                                         </div>                                                    
                                     </div>
@@ -164,7 +174,7 @@ class MostraFicha extends Component {
                                         <h2 className="title3DEt">História</h2>
                                         <div className="columns">
                                             <div className="column">
-                                                <p></p>
+                                            <p>{this.state.modelo.ficha.Historia}</p>
                                             </div>
                                         </div>                                                    
                                     </div>

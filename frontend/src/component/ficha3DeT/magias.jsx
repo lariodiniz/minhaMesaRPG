@@ -5,51 +5,50 @@ import Input from '../../common/templates/input/input'
 import Button from '../../common/templates/button/button'
 import Icon from '../../common/templates/icon/icon'
 import Panel from './panel'
-import aplicaVantagem from './aplicaVantagem';
 
-class Vantagem extends Component {
+class Magias extends Component {
 
     constructor(props){
         super(props);
-        this.state = {state:props.state, vantagens:[]}
+        this.state = {state:props.state, magias:[]}
     }    
 
     componentWillMount(){
 
-        axios.get(`${constantes.API_URL}/api/tresDeT/vantagens/`).then((resp) =>{
-            let vantagens = []
+        axios.get(`${constantes.API_URL}/api/tresDeT/magias/`).then((resp) =>{
+            let magias = []
             resp.data.map((item) => {
-                let vantagem = {vantagem:item, visualizar:false, selecionada:false}
-                vantagens.push(vantagem)
+                let magia = {magia:item, visualizar:false, selecionada:false}
+                magias.push(magia)
             })
-            this.setState( {...this.state, vantagens:vantagens})
+            this.setState( {...this.state, magias:magias})
         })
     }
 
-    vantagem_selecionada(item){ 
+    magia_selecionada(item){ 
 
         let state = this.state
-        aplicaVantagem(state.state.modelo.ficha, item.vantagem)
+        state.state.modelo.ficha.magiasConhecidas.push(item.magia)            
         item.selecionada = true;
         this.props.setaModelo(state.state)
     }
 
-    render_vantagens_linha(){
+    render_magias_linha(){
 
-        let vantagens = this.state.vantagens ? this.state.vantagens : []
-        return vantagens.map((item) =>{            
+        let magias = this.state.magias ? this.state.magias : []
+        return magias.map((item) =>{            
                 if (item.visualizar && !item.selecionada){
-                    let vantagem = item.vantagem
+                    let magia = item.magia
                     return  (
-                        <tr key={vantagem.id}> 
-                            <th>{vantagem.name}</th>
-                            <th>{vantagem.description}</th>
-                            <th>{vantagem.cost}</th>
+                        <tr key={magia.id}> 
+                            <th>{magia.name}</th>
+                            <th>{magia.description}</th>
+                            <th>{magia.cost}</th>
                             <th>
                                 <Button 
                                 
                                 classes='is-success' 
-                                click={()=>{this.vantagem_selecionada(item)}}>
+                                click={()=>{this.magia_selecionada(item)}}>
                                     <Icon icon='add-circle-outline'/>   
                                 </Button>
                                 
@@ -67,13 +66,13 @@ class Vantagem extends Component {
     filtra(event) {
 
         let palavras = event.target.value.toUpperCase().split(' ');
-        let vantagens = this.state.vantagens
+        let magias = this.state.magias
 
         for (let i = 0; i < palavras.length; i++) {            
             let regexp = new RegExp(palavras[i]);           
             if (i === 0) {
-                vantagens.forEach((item) => {
-                    let nome = item.vantagem.name.toUpperCase()
+                magias.forEach((item) => {
+                    let nome = item.magia.name.toUpperCase()
 
                     if (regexp.test(nome)) {
                         item.visualizar = true;                        
@@ -84,8 +83,8 @@ class Vantagem extends Component {
 
             }
             else {
-                vantagens.filter(item => item.visualizar).forEach((item) => {
-                    let nome = item.vantagem.name.toUpperCase()
+                magias.filter(item => item.visualizar).forEach((item) => {
+                    let nome = item.magia.name.toUpperCase()
 
                     if (regexp.test(nome)) {
                         item.visualizar = true;                        
@@ -96,10 +95,10 @@ class Vantagem extends Component {
             }
         }
 
-        this.setState( {...this.state, vantagens:vantagens})
+        this.setState( {...this.state, magias:magias})
     }
 
-    render_vantagens(){
+    render_magias(){
 
         
         return (
@@ -114,7 +113,7 @@ class Vantagem extends Component {
                         </tr>
                     </thead> 
                     <tbody>
-                        {this.render_vantagens_linha()}
+                        {this.render_magias_linha()}
                     </tbody>
                 </table>
             </div>
@@ -127,12 +126,12 @@ class Vantagem extends Component {
                 <div className="column">
                     <div className="columns">
                         <div className="column">
-                            <Input onChange={(event)=>{this.filtra(event)}} id='buscaVantagem' nome='Pesquisar'  placeholder='Pesquisa vantagem'/>
+                            <Input onChange={(event)=>{this.filtra(event)}} id='buscamagia' nome='Pesquisar'  placeholder='Pesquisa magia'/>
                         </div>
                     </div>
                     <div className="columns">
                         <div className="column">
-                            {this.render_vantagens()}
+                            {this.render_magias()}
                         </div>
                     </div>    
                 </div>            
@@ -144,7 +143,7 @@ class Vantagem extends Component {
         return (        
             <Panel 
                 icon={this.props.icon}
-                titulo='Vantagens e Pericias'  
+                titulo='Magias'  
                 botaoAnterior={true}
                 state={this.state.state} 
                 passoAnterior={this.props.passoAnterior}
@@ -155,6 +154,5 @@ class Vantagem extends Component {
     }    
 }
 
-
-export default Vantagem
+export default Magias
 
