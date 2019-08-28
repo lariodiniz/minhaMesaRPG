@@ -5,7 +5,6 @@ export const modelo = {
     ficha : {
         nome: '',
         pontos: '',
-        pontos_gastos: 0,
         caracteristicas: {
             forca : 0,
             habilidade: 0,

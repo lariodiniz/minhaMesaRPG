@@ -5,6 +5,7 @@ import Input from '../../common/templates/input/input'
 import Button from '../../common/templates/button/button'
 import Icon from '../../common/templates/icon/icon'
 import Panel from './panel'
+import aplicaVantagem from './aplicaVantagem';
 
 class Vantagem extends Component {
 
@@ -28,17 +29,9 @@ class Vantagem extends Component {
     vantagem_selecionada(item){ 
 
         let state = this.state
-        let pontos = state.state.modelo.ficha.pontos - state.state.modelo.ficha.pontos_gastos;
-        
-        if (pontos < item.vantagem.cost){
-            this.props.mensagem('Você não tem pontos suficientes!')
-        }
-        else {
-            state.state.modelo.ficha.vantagens.push(item.vantagem.name+' ('+item.vantagem.cost+')')            
-            state.state.modelo.ficha.pontos -= item.vantagem.cost;
-            item.selecionada = true;
-            this.props.setaModelo(state.state)
-        }
+        aplicaVantagem(state.state.modelo.ficha, item.vantagem)
+        item.selecionada = true;
+        this.props.setaModelo(state.state)
     }
 
     render_vantagens_linha(){

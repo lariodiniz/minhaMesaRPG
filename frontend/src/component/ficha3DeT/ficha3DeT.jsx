@@ -11,11 +11,7 @@ import { modelo } from './modelo'
 
 import './ficha3DeT.css'
 
-
-
-
 class Ficha3DeT extends Component {
-
 
     constructor(props) {
         super(props)

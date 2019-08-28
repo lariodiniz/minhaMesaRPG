@@ -10,8 +10,7 @@ export default props => (
         <div className="container">                
             <h2 className="title3DEt">
                 <Icon icon={props.icon} />
-                {props.titulo}       
-                <span className="tag is-white is-pulled-right">Pontos: {props.state.modelo.ficha.pontos - props.state.modelo.ficha.pontos_gastos}</span>
+                {props.titulo}
             </h2>     
         </div>
         

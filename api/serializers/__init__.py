@@ -2,3 +2,4 @@ from .user_serializer import UserSerializer
 from .rpg_system_serializer import RPGSystemSerializer
 from .vantagens_serializer import VantagensSerializer
 from .desvantagens_serializer import DesvantagensSerializer
+from .magias_serializer import MagiasSerializer

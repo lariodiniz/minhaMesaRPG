@@ -28,8 +28,7 @@ class Desdesvantagem extends Component {
     desvantagem_selecionada(item){ 
 
         let state = this.state
-        state.state.modelo.ficha.desvantagens.push(item.desvantagem.name+' ('+item.desvantagem.cost+')')            
-        state.state.modelo.ficha.pontos -= item.desvantagem.cost;
+        state.state.modelo.ficha.desvantagens.push(item.desvantagem)            
         item.selecionada = true;
         this.props.setaModelo(state.state)
  

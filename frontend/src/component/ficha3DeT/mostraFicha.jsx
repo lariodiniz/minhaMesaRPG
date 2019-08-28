@@ -15,7 +15,7 @@ class MostraFicha extends Component {
         let vantagens = this.state.modelo.ficha.vantagens ? this.state.modelo.ficha.vantagens : []
         return vantagens.map((vantagem) =>{            
             return  (
-                <p key={vantagem}>{vantagem}</p>
+                <p key={vantagem.id}>{(vantagem.name+' ('+vantagem.cost+')')}</p>
                 )
             })
     }
@@ -25,7 +25,7 @@ class MostraFicha extends Component {
         
         return desvantagens.map((desvantagem) =>{            
             return  (
-                <p key={desvantagem}>{desvantagem}</p>
+                <p key={desvantagem.id}>{(desvantagem.name+' ('+desvantagem.cost+')')}</p>
                 )
             })
     }    

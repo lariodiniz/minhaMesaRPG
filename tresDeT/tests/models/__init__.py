@@ -1,2 +1,3 @@
 from .vantagens_model_test_case import VantagensModelTestCase
 from .desvantagens_model_test_case import DesvantagensModelTestCase
+from .magias_model_test_case import MagiasModelTestCase
