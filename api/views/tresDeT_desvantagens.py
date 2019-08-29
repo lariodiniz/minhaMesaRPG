@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 
 from tresDeT.models import Desvantagens
-from api.serializers import DesvantagensSerializer
+from api.serializers import TresDeTDesvantagensSerializer
 
 
 
@@ -20,7 +20,7 @@ class TresDeT_desvantagens(APIView):
     def get(self, request, format=None):    
         
         desvantagens = Desvantagens.objects.all()
-        serializer = DesvantagensSerializer(desvantagens, many=True)
+        serializer = TresDeTDesvantagensSerializer(desvantagens, many=True)
         return Response(serializer.data)
 
 

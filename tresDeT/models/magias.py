@@ -7,11 +7,11 @@ from api.models import RPGSystem
 
 class Magias(models.Model):
     
-    name = models.CharField('Nome',max_length=30)
+    name = models.CharField('Nome',max_length=100)
     description = models.CharField('Descrição', max_length=250, blank=True, null=True) 
-    cost = models.CharField('Custo',max_length=30)
-    duration = models.CharField('Duração',max_length=30)
-    reach = models.CharField('Alcance',max_length=30)
+    cost = models.CharField('Custo',max_length=50)
+    duration = models.CharField('Duração',max_length=50)
+    reach = models.CharField('Alcance',max_length=50)
 
     system = models.ForeignKey(RPGSystem, verbose_name='Sistema', on_delete=models.CASCADE)
 

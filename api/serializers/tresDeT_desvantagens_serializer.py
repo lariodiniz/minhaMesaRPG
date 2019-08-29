@@ -4,7 +4,7 @@ __author__ = "Lário dos Santos Diniz"
 from rest_framework import serializers
 from tresDeT.models import Desvantagens
 
-class DesvantagensSerializer(serializers.ModelSerializer):
+class TresDeTDesvantagensSerializer(serializers.ModelSerializer):
     class Meta:
         model = Desvantagens
         fields = ['name', 'cost', 'description']

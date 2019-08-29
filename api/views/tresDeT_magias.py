@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 
 from tresDeT.models import Magias
-from api.serializers import MagiasSerializer
+from api.serializers import TresDeTMagiasSerializer
 
 
 
@@ -19,7 +19,7 @@ class TresDeT_magias(APIView):
 
     def get(self, request, format=None):  
         magias = Magias.objects.all()
-        serializer = MagiasSerializer(magias, many=True)
+        serializer = TresDeTMagiasSerializer(magias, many=True)
         return Response(serializer.data)
 
 
