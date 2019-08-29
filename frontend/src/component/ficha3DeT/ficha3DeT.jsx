@@ -174,50 +174,37 @@ class Ficha3DeT extends Component {
                     <div className="modal-background"></div>
                     <div className="modal-card">
                         <header className="modal-card-head">
-                            <div className='columns'>
-                                <div className='column'>                                    
-                                    <Button 
-                                        classes='is-info' 
-                                        click={()=> {this.definePasso(0); this.some_modal()}} >
-                                        <Icon icon={ICONES[0]}/>
-                                    </Button>
-                                </div>
-                                <div className='column'>
-                                    <Button 
-                                        classes='is-info' 
-                                        click={()=> {this.definePasso(1); this.some_modal()}} >
-                                        <Icon icon={ICONES[1]}/>
-                                    </Button>
-                                </div>
-                                <div className='column'>
-                                    <Button 
-                                        classes='is-info' 
-                                        click={()=> {this.definePasso(2); this.some_modal()}} >
-                                        <Icon icon={ICONES[2]}/>
-                                    </Button>
-                                </div>
-                                <div className='column'>
-                                    <Button 
-                                        classes='is-info' 
-                                        click={()=> {this.definePasso(3); this.some_modal()}} >
-                                        <Icon icon={ICONES[3]}/>
-                                    </Button>
-                                </div>  
-                                <div className='column'>
-                                    <Button 
-                                        classes='is-info' 
-                                        click={()=> {this.definePasso(4); this.some_modal()}} >
-                                        <Icon icon={ICONES[4]}/>
-                                    </Button>
-                                </div>  
-                                <div className='column'>
-                                    <Button 
-                                        classes='is-info' 
-                                        click={()=> {this.definePasso(5); this.some_modal()}} >
-                                        <Icon icon={ICONES[5]}/>
-                                    </Button>
-                                </div>                                                                                             
-                            </div>
+                                <Button 
+                                    classes='is-info' 
+                                    click={()=> {this.definePasso(0); this.some_modal()}} >
+                                    <Icon icon={ICONES[0]}/>
+                                </Button>
+                                <Button 
+                                    classes='is-info' 
+                                    click={()=> {this.definePasso(1); this.some_modal()}} >
+                                    <Icon icon={ICONES[1]}/>
+                                </Button>
+                                <Button 
+                                    classes='is-info' 
+                                    click={()=> {this.definePasso(2); this.some_modal()}} >
+                                    <Icon icon={ICONES[2]}/>
+                                </Button>
+                                <Button 
+                                    classes='is-info' 
+                                    click={()=> {this.definePasso(3); this.some_modal()}} >
+                                    <Icon icon={ICONES[3]}/>
+                                </Button>
+                                <Button 
+                                    classes='is-info' 
+                                    click={()=> {this.definePasso(4); this.some_modal()}} >
+                                    <Icon icon={ICONES[4]}/>
+                                </Button>
+                                <Button 
+                                    classes='is-info' 
+                                    click={()=> {this.definePasso(5); this.some_modal()}} >
+                                    <Icon icon={ICONES[5]}/>
+                                </Button>
+                                
                         </header>
                         <section className="modal-card-body">
                             <MostraFicha state={this.state} />

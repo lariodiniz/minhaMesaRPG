@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Panel from './panel'
-import Input from '../../common/templates/input/input'
+import TextArea from '../../common/templates/textArea/textArea'
 
 class ToquesFinais extends Component {
 
@@ -43,24 +43,24 @@ class ToquesFinais extends Component {
             <div className="column">
             <div className="columns">
                     <div className="column">
-                        <Input  id='' nome='tiposDeDano'  placeholder='escreva o tipo de dano' 
+                        <TextArea  id='tiposDeDano' nome='Tipos De Dano' rows="5"   
                          valor={tiposDeDano}
                             onChange={this.changeTiposDeDano.bind(this)}
                             />
                     </div>
-                </div>                
-                <div className="columns">
                     <div className="column">
-                        <Input  id='itens' nome='Dinheiro e Itens'  placeholder='informe seus itens' 
+                        <TextArea  id='itens' nome='Dinheiro e Itens'  placeholder='informe seus itens' 
                          valor={itens}
                             onChange={this.changeItens.bind(this)}
+                            rows="5"
                             />
                     </div>
                 </div>
                 <div className="columns">
                     <div className="column">
-                        <Input  id='historia' nome='História'  placeholder='escreva sua história' 
+                        <TextArea  id='historia' nome='História'  placeholder='escreva sua história' 
                          valor={historia}
+                         rows="5"
                             onChange={this.changeHistoria.bind(this)}
                             />
                     </div>

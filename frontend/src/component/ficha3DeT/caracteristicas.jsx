@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Panel from './panel'
+import Input from '../../common/templates/input/input'
 
 class Caracteristicas extends Component {
 
@@ -71,6 +72,44 @@ class Caracteristicas extends Component {
        
     }
 
+    changePV(event){ 
+        let state = {...this.state}
+        state.modelo.ficha.caracteristicas.pontosDeVida = event.target.value
+        this.props.setaModelo(state)
+        
+    }
+
+    changePM(event){ 
+        let state = {...this.state}
+        state.modelo.ficha.caracteristicas.pontosDeMagia = event.target.value
+        this.props.setaModelo(state)
+        
+    }
+
+    render_pv_e_pm() {
+        let pv = this.state.modelo.ficha.caracteristicas.pontosDeVida
+        let pm = this.state.modelo.ficha.caracteristicas.pontosDeMagia
+
+        return (
+            <React.Fragment>
+                <div className="column">
+                    <Input  id='pv' nome='PV'  type='number'
+                        valor={pv}
+                        onChange={this.changePV.bind(this)}
+                    />  
+                </div>
+                <div className="column">
+                    <Input  id='pm' nome='PM'  type='number'
+                        valor={pm}
+                        onChange={this.changePM.bind(this)}
+                    />  
+                </div>
+            </React.Fragment>
+            
+            
+        )
+    }
+
     render() {
         return (   
             <Panel 
@@ -80,7 +119,15 @@ class Caracteristicas extends Component {
                 state={this.state} 
                 passoAnterior={this.props.passoAnterior}
                 proximoPasso={this.props.proximoPasso}>
-                    {this.render_caracteristicas()}
+                    <div className="column">                        
+                        <div className="columns">
+                            {this.render_caracteristicas()}
+                        </div>
+                        <div className="columns">
+                        {this.render_pv_e_pm()}
+                        </div>
+                    </div>
+                    
             </Panel>
         )
     }    

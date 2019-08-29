@@ -46,7 +46,7 @@ class MostraFicha extends Component {
                 <div className="container ficha">
                     <h1 className="title title3DEt">{`3D&T`}</h1>
                     <div className="section topo_ficha">
-                        <div className="columns topo_ficha">
+                        <div className="columns is-mobile topo_ficha">
                             <div className="column is-three-fifths">
                                 <p><strong>Nome: </strong>{this.state.modelo.ficha.nome}</p>
                             </div>
@@ -54,12 +54,12 @@ class MostraFicha extends Component {
                                 <p><strong>Pontos: </strong>{this.state.modelo.ficha.pontos}</p>
                             </div>                                
                         </div>
-                        <div className="columns">                                        
+                        <div className="columns is-mobile">                                        
                             <div className="column">
                                 <div className="columns">                                        
                                     <div className="column">                                            
                                         <h2 className="title3DEt">Caracteristicas</h2>
-                                        <div className="columns">
+                                        <div className="columns is-mobile">
                                             <div className="column is-three-fifths">
                                                 <strong>Força: </strong>
                                             </div>
@@ -67,7 +67,7 @@ class MostraFicha extends Component {
                                                 <p>{this.state.modelo.ficha.caracteristicas.forca}</p>
                                             </div>
                                         </div>
-                                        <div className="columns">
+                                        <div className="columns is-mobile">
                                             <div className="column is-three-fifths">
                                                 <strong>Habilidade: </strong>
                                             </div>
@@ -75,7 +75,7 @@ class MostraFicha extends Component {
                                                 <p>{this.state.modelo.ficha.caracteristicas.habilidade}</p>
                                             </div>
                                         </div>
-                                        <div className="columns">
+                                        <div className="columns is-mobile">
                                             <div className="column is-three-fifths">
                                                 <strong>Resistência: </strong>
                                             </div>
@@ -83,7 +83,7 @@ class MostraFicha extends Component {
                                                 <p>{this.state.modelo.ficha.caracteristicas.resistencia}</p>
                                             </div>
                                         </div>
-                                        <div className="columns">
+                                        <div className="columns is-mobile">
                                             <div className="column is-three-fifths">
                                                 <strong>Armadura: </strong>
                                             </div>
@@ -91,7 +91,7 @@ class MostraFicha extends Component {
                                                 <p>{this.state.modelo.ficha.caracteristicas.armadura}</p>
                                             </div>
                                         </div>
-                                        <div className="columns">
+                                        <div className="columns is-mobile">
                                             <div className="column is-three-fifths">
                                                 <strong>Poder de Fogo: </strong>
                                             </div>
@@ -99,7 +99,7 @@ class MostraFicha extends Component {
                                                 <p>{this.state.modelo.ficha.caracteristicas.poderDeFoco}</p>
                                             </div>
                                         </div>
-                                        <div className="columns">
+                                        <div className="columns is-mobile">
                                             <div className="column is-three-fifths">
                                                 <strong>Pontos de Vida: </strong>
                                             </div>
@@ -107,7 +107,7 @@ class MostraFicha extends Component {
                                                 <p>{this.state.modelo.ficha.caracteristicas.pontosDeVida}</p>
                                             </div>
                                         </div>
-                                        <div className="columns">
+                                        <div className="columns is-mobile">
                                             <div className="column is-three-fifths">
                                                 <strong>Pontos de Magia: </strong>
                                             </div>
