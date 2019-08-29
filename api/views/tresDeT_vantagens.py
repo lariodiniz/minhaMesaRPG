@@ -4,7 +4,7 @@ __author__ = "Lário dos Santos Diniz"
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 
 from tresDeT.models import Vantagens
 from api.serializers import TresDeTVantagensSerializer
@@ -15,7 +15,7 @@ class TresDeT_vantagens(APIView):
     """
     List all Vantagens 3D&T.
     """
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request, format=None):    
         

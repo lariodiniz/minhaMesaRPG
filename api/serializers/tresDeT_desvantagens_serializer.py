@@ -7,4 +7,4 @@ from tresDeT.models import Desvantagens
 class TresDeTDesvantagensSerializer(serializers.ModelSerializer):
     class Meta:
         model = Desvantagens
-        fields = ['name', 'cost', 'description']
+        fields = ['id','name', 'cost', 'description']

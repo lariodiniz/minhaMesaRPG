@@ -23,9 +23,9 @@ class Fichas(models.Model):
     items = models.CharField('Itens',max_length=250) 
     story = models.CharField('Historia',max_length=250) 
     
-    benefits = models.ForeignKey(Vantagens, verbose_name='Vantagens', on_delete=models.CASCADE, null=True)
-    disadvantages = models.ForeignKey(Desvantagens, verbose_name='Desvantagens', on_delete=models.CASCADE, null=True)
-    magic = models.ForeignKey(Magias, verbose_name='Magias', on_delete=models.CASCADE, null=True)
+    benefits = models.ManyToManyField(Vantagens, verbose_name='Vantagens')
+    disadvantages = models.ManyToManyField(Desvantagens, verbose_name='Desvantagens')
+    magic = models.ManyToManyField(Magias, verbose_name='Magias')
     user = models.ForeignKey(User, verbose_name='Usuário', on_delete=models.CASCADE)
     system = models.ForeignKey(RPGSystem, verbose_name='Sistema', on_delete=models.CASCADE)
 
