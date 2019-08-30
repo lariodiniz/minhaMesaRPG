@@ -10,20 +10,20 @@ from django.conf import settings
 
 from model_mommy import mommy
 
-from tresDeT.models import Magias
+from tresDeT.models import Vantagens
 
 
-class MagiasViewTestCase(APITestCase):
+class TresDeTVantagensViewTestCase(APITestCase):
     """test user view"""
     def setUp(self):
         
-        self.url = reverse('api:tresDeT_magias')
+        self.url = reverse('api:tresDeT_vantagens')
         
         self.user = mommy.prepare(settings.AUTH_USER_MODEL)
         self.username = 'teste'
         self.user.set_password('123456')
         self.user.save() 
-        mommy.make(Magias)
+        mommy.make(Vantagens)
 
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)

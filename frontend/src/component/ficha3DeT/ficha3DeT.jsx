@@ -118,7 +118,7 @@ class Ficha3DeT extends Component {
                             
                     />
             default:
-                return <MostraFicha state={this.state} />
+                return <MostraFicha state={this.state} tipo='INSERT'/>
           } 
     }
 
