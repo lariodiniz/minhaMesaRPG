@@ -8,7 +8,7 @@ import { NavLink } from 'react-router-dom'
 export default props => {
 
     return (        
-    <div className='column'>
+    <div key={props.id} className='column'>
         <div className="card">
             <header className="card-header">
                 <p className="card-header-title">{props.title}

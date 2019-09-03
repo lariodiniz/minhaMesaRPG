@@ -8,6 +8,7 @@ import Mesas from '../mesas/mesas'
 import Cadastro from '../cadastro/cadastro'
 import Ficha from '../ficha/ficha'
 import VisualizaPersonagem from '../visualizaPersonagem/visualizaPersonagem'
+import ApagaFicha from '../apagaFicha/apagaFicha'
 
 
 import Menu from '../menuLeft/menuLeft'
@@ -28,6 +29,7 @@ export default props => (
                 <Route exact path='/Ficha/' component={Ficha} />
                 
                 <Route path='/Personagem/:system/:id' component={VisualizaPersonagem} />
+                <Route path='/Apaga/Ficha/:system/:name/:id' component={ApagaFicha} />
                 
                 <Redirect from='*' to='/Dashboard' />
             </HashRouter> 

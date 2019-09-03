@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { constantes } from '../../constants'
+
 import MostraFicha3DeT from '../ficha3DeT/mostraFicha'
 import Visualiza3DeT from './visualiza3DeT'
 import { modelo as modelo3DeT } from '../ficha3DeT/modelo'
@@ -76,7 +77,9 @@ class VisualizaPersonagens extends Component {
 
 
     render_private(){
-        return <Visualiza3DeT state={this.state.ficha}/>
+        let id = this.props.match.params.id
+        let ficha = {...this.state.ficha, id:id}
+        return <Visualiza3DeT state={ficha}/>
     }
 
 

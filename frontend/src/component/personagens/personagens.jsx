@@ -26,7 +26,7 @@ class Personagens extends Component {
         
         return this.state.personagens.map(personagem =>{
             
-            return  <ItemPainel key={personagem.name+personagem.system} 
+            return  <ItemPainel key={personagem.id} 
                 title={personagem.name} 
                 description={personagem.description} 
                 system={personagem.system}

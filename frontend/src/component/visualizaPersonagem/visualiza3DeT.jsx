@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { NavLink } from 'react-router-dom'
+
 import Button from '../../common/templates/button/button'
 import Icon from '../../common/templates/icon/icon'
 import Input from '../../common/templates/input/input'
@@ -204,6 +206,7 @@ class Visualiza3DeT extends Component {
         let temVantagem = this.state.benefits.length > 0
         let temDesvantatem = this.state.disadvantages.length > 0
         
+        
         return (
             
             <React.Fragment>
@@ -281,6 +284,15 @@ class Visualiza3DeT extends Component {
                                 </If>
                                 
                             </ul>
+                            <div className='fot'>
+                                <div className='columns'> 
+                                    <div className='column is-half'> 
+                                        <NavLink to={`/Apaga/Ficha/3deT/${this.state.name}/${this.state.id}`} className="button is-danger">
+                                        Apagar</NavLink>
+                                </div>
+
+                            </div>
+                    </div>
                         </nav>
                         <div id='grupo_mostrar' className=' is-invisible'>
                             <div id='grupo_body' >
@@ -307,7 +319,8 @@ class Visualiza3DeT extends Component {
                                 <button onClick={() => document.getElementById('grupo_mostrar').classList.add("is-invisible")} className="button">Sair</button>
                             </div>
                         </div>
-                    </section>                    
+                    </section> 
+                    
                 </div>
 
                 {this.render_modal()}

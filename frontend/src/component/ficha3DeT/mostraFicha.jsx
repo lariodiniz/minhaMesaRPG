@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Button from '../../common/templates/button/button'
 import axios from 'axios'
 import { constantes } from '../../constants'
+import { NavLink } from 'react-router-dom'
+
+import Button from '../../common/templates/button/button'
+
+
+
 
 class MostraFicha extends Component {
 
@@ -70,7 +75,7 @@ class MostraFicha extends Component {
             }
 
         axios[verbo](`${constantes.API_URL}/api/tresDeT/fichas/`, data).then((resp) =>{
-            this.props.history.push("/Dashboard");
+            document.getElementById('button_dashboard').click()
         })
         .catch( (e) => {
             console.log(e)
@@ -246,9 +251,10 @@ class MostraFicha extends Component {
                 </div>
                 
                 
-                
+                {this.render_rodape()}
             </div> 
-            {this.render_rodape()}
+            
+            <NavLink id='button_dashboard' to={`/Dashboard/`} className="button is-invisible">Dashboard</NavLink>
             </React.Fragment> 
         )
     }

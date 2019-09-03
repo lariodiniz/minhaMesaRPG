@@ -17,6 +17,7 @@ class BuscaPersonagens():
 
         for pe in ps:
             p = {}
+            p['id'] = str(pe.system.pk)+'-'+str(pe.pk)
             p['name'] = pe.name
             p['description'] = pe.story
             p['system'] = pe.system.name

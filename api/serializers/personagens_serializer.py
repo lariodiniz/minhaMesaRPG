@@ -6,6 +6,7 @@ from api.models import RPGSystem
 
 class PersonagemSerializer(serializers.Serializer):
     
+    id = serializers.CharField(max_length=200)
     name = serializers.CharField(max_length=200)
     description = serializers.CharField(max_length=200)
     system = serializers.CharField(max_length=200)

@@ -14,7 +14,7 @@ class TresDeTFichasSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Fichas
-        fields = ['name', 'points', 'force', 'abiliity', 'resistance', 'armor', 'fire_power',
+        fields = ['id', 'name', 'points', 'force', 'abiliity', 'resistance', 'armor', 'fire_power',
                  'health_points', 'magic_points', 'benefits', 'disadvantages', 'damage_types',
                  'magic', 'items', 'story', 'user', 'system', 'experience_points']
 
