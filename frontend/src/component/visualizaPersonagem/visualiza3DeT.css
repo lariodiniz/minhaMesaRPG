@@ -2,7 +2,7 @@
     border:solid 1px rgb(115, 189, 250);
     border-radius: 15px;
     margin: 1px;
-    padding: 1px;
+    padding: 5px;
 }
 
 .title_area{
@@ -21,4 +21,42 @@
 
 .menuSelesct button {
     width: 100%;
+}
+
+#grupo_mostrar{
+    display: block;
+    width: 90%;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    border:solid 1px rgb(115, 189, 250);
+    border-radius: 15px;
+    padding: 10px;
+    background-color: rgb(115, 189, 250);
+}
+
+#grupo_body{
+    position: relative;   
+    
+    
+}
+
+#grupo_mostrar .grupo{
+    position: absolute;
+    width: 100%;
+    
+}
+
+
+.grupo_panel_body{
+    display: block;
+    background-color: #FFF;
+    padding: 20px;
+
+}
+
+#grupo_mostrar .foote{
+    margin: 10px;
+    position: absolute;
+    bottom: 0px;
 }

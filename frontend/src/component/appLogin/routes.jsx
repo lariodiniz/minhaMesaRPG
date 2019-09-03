@@ -26,6 +26,7 @@ export default props => (
                 <Route exact path='/Mesas/' component={Mesas} />
                 <Route exact path='/Cadastro/' component={Cadastro} />
                 <Route exact path='/Ficha/' component={Ficha} />
+                
                 <Route path='/Personagem/:system/:id' component={VisualizaPersonagem} />
                 
                 <Redirect from='*' to='/Dashboard' />

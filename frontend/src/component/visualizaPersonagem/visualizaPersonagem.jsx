@@ -24,7 +24,8 @@ class VisualizaPersonagens extends Component {
         if (system === '3deT') {
             axios.get(`${constantes.API_URL}/api/tresDeT/personagem/${id}`).then((resp) =>{
                 const { user } = this.props.auth
-                if (resp.data.user === user.user_id){
+                
+                if (user && resp.data.user === user.user_id){
                     this.setState({type: 'private', ficha: resp.data})
                 }
                 else {
@@ -75,7 +76,6 @@ class VisualizaPersonagens extends Component {
 
 
     render_private(){
-        let id =this.props.match.params.id
         return <Visualiza3DeT state={this.state.ficha}/>
     }
 

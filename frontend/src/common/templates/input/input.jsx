@@ -13,10 +13,9 @@ export default props => (
                     <input className={`input is-${props.cor} is-rounded`}
                         type={ props.type ? `${props.type}` : 'text'} 
                         placeholder={props.placeholder}
-                        value={props.valor}
+                        value={props.value}
                         id={props.id}
                         onChange={props.onChange}
-                        value={props.value}
                         ></input>
                 </p>
             </div>
