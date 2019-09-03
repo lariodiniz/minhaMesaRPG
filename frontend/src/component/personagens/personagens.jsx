@@ -1,27 +1,37 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import axios from 'axios'
+import { constantes } from '../../constants'
 
 import Painel from '../painel/painel'
 import ItemPainel from '../painel/itemPainel'
 
-const MESAS_ = [
-    {'nome': 'Personagem 01', 'description': 'descrição da Personagem 1'},
-    {'nome': 'Personagem 02', 'description': 'descrição da Personagem 2'},
-    {'nome': 'Personagem 03', 'description': 'descrição da Personagem 3'},
-    {'nome': 'Personagem 04', 'description': 'descrição da Personagem 4'},    
-
-]
 
 class Personagens extends Component {
     
     constructor(props) {
         super(props)
-        this.state = {mesa: MESAS_}
+        this.state = {personagens: []}
+    }
+
+    componentWillMount(){
+        const { user } = this.props.auth
+
+        axios.get(`${constantes.API_URL}/api/personagens/${user.user_id}`).then((resp) =>{
+            this.setState( {...this.state, personagens:resp.data})
+        })
     }
 
     _render_personagens(){
         
-        return this.state.mesa.map(mesa =>{
-            return  <ItemPainel title={mesa.nome} description={mesa.description} />
+        return this.state.personagens.map(personagem =>{
+            
+            return  <ItemPainel key={personagem.name+personagem.system} 
+                title={personagem.name} 
+                description={personagem.description} 
+                system={personagem.system}
+                slug={personagem.slug}
+                />
         }
         )
         
@@ -41,7 +51,6 @@ class Personagens extends Component {
 }
 
 
-//const mapDispatchToProps = dispatch => bindActionCreators({ login, signup },dispatch)
-//export default connect(null, mapDispatchToProps)(Mesas)
+const mapStateToProps = state => ({ auth: state.auth })
+export default connect(mapStateToProps, null)(Personagens)
 
-export default Personagens

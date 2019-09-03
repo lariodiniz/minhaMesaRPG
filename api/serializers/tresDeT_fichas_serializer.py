@@ -23,30 +23,6 @@ class TresDeTFichasSerializer(serializers.ModelSerializer):
     magic = TresDeTMagiasSerializer(many=True)
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     system = serializers.PrimaryKeyRelatedField(queryset=RPGSystem.objects.all())
-
-    """
-    name = serializers.CharField(max_length=50)
-    points = serializers.IntegerField()
-    force = serializers.IntegerField()
-    abiliity = serializers.IntegerField()
-    resistance = serializers.IntegerField()
-    armor = serializers.IntegerField()
-    fire_power = serializers.IntegerField()
-    health_points = serializers.IntegerField()
-    magic_points = serializers.IntegerField()
-    experience_points = serializers.IntegerField()
-
-    damage_types = serializers.CharField(max_length=250, required=False)
-    items = serializers.CharField(max_length=250, required=False)
-    story = serializers.CharField(max_length=250, required=False)
-    
-    benefits = TresDeTVantagensSerializer(many=True)
-    disadvantages = TresDeTDesvantagensSerializer(many=True)
-    magic = TresDeTMagiasSerializer(many=True)
-
-    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
-    system = serializers.PrimaryKeyRelatedField(queryset=RPGSystem.objects.all())
-    """
     
     def create(self, validated_data):
         

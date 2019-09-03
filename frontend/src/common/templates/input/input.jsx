@@ -16,6 +16,7 @@ export default props => (
                         value={props.valor}
                         id={props.id}
                         onChange={props.onChange}
+                        value={props.value}
                         ></input>
                 </p>
             </div>

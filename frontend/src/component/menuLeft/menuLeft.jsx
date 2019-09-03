@@ -48,8 +48,8 @@ class MenuLeft extends Component {
                     <aside className={`menu`}>
                         <p className="menu-label">Minha Mesa RPG</p>
                         <ul className="menu-list">
-                            <MenuItem path='Dashboard' label='Dashboard' icon='browsers'/>
-                            <MenuItem path='Personagens' label='Personages' icon='contacts'/>
+                            <MenuItem path='Dashboard' label='Dashboard' icon='browsers' id='Dashboard_button'/>
+                            <MenuItem path='Personagens' label='Personagens' icon='contacts'/>
                             {/*<MenuItem path='Mesas' label='Mesas' icon='paper'/>*/}
                         </ul>
                         <p className="menu-label">Geral</p>

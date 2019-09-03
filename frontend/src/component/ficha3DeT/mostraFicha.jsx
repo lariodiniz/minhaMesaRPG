@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Button from '../../common/templates/button/button'
 import axios from 'axios'
 import { constantes } from '../../constants'
-import { Redirect } from 'react-router'
 
 class MostraFicha extends Component {
 
@@ -46,6 +46,8 @@ class MostraFicha extends Component {
 
     acaoFicha(){
         let verbo = this.props.tipo === "INSERT" ? 'post' : 'put'
+        const { user } = this.props.auth
+        
         let data = 	{
             "name": this.state.modelo.ficha.nome, 
             "points": this.state.modelo.ficha.pontos, 
@@ -58,21 +60,20 @@ class MostraFicha extends Component {
             "magic_points": this.state.modelo.ficha.caracteristicas.pontosDeMagia, 
             "benefits":this.state.modelo.ficha.vantagens, 
             "disadvantages":this.state.modelo.ficha.desvantagens,
-            "damage_types":this.state.modelo.ficha.tiposDeDano, 
+            "damage_types":this.state.modelo.ficha.tiposDeDano ===''?'não definido':this.state.modelo.ficha.tiposDeDano, 
             "magic":this.state.modelo.ficha.magiasConhecidas,
-            "items":this.state.modelo.ficha.dinheiroEItens,  
-            "story":this.state.modelo.ficha.Historia, 
-            "user":1, 
+            "items":this.state.modelo.ficha.dinheiroEItens ===''?'não definido':this.state.modelo.ficha.dinheiroEItens,  
+            "story":this.state.modelo.ficha.Historia ===''?'não definido':this.state.modelo.ficha.Historia,  
+            "user":user.user_id, 
             "system":this.state.modelo.sistemaId, 
             "experience_points": this.state.modelo.ficha.caracteristicas.pontosDeExperiencia
             }
 
         axios[verbo](`${constantes.API_URL}/api/tresDeT/fichas/`, data).then((resp) =>{
-            console.log('Cadastrado')
+            this.props.history.push("/Dashboard");
         })
         .catch( (e) => {
-            console.log(e.response.data)
-            let obj = e.response.data
+            console.log(e)
             
         })
 
@@ -254,4 +255,6 @@ class MostraFicha extends Component {
 
 }
 
-export default MostraFicha
+
+const mapStateToProps = state => ({ auth: state.auth })
+export default connect(mapStateToProps, null)(MostraFicha)

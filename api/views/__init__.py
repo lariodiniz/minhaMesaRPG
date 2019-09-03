@@ -4,3 +4,5 @@ from .tresDeT_vantagens import tresDeT_vantagens
 from .tresDeT_desvantagens import tresDeT_desvantagens
 from .tresDeT_magias import tresDeT_magias
 from .tresDeT_fichas_create import tresDeT_fichas_create
+from .tresDeT_personagem import tresDeT_personagem
+from .personagens import personagens

@@ -96,17 +96,17 @@ class Caracteristicas extends Component {
                     <Input  id='pv' nome='PV'  type='number'
                         valor={pv}
                         onChange={this.changePV.bind(this)}
+                        value={pv}
                     />  
                 </div>
                 <div className="column">
                     <Input  id='pm' nome='PM'  type='number'
                         valor={pm}
                         onChange={this.changePM.bind(this)}
+                        value={pm}
                     />  
                 </div>
             </React.Fragment>
-            
-            
         )
     }
 
