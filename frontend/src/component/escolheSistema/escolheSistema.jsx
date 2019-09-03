@@ -33,7 +33,7 @@ class EscolherSistema extends Component {
                         <div className="card-content">     
                             <div className="content">  
                                 <h3>{sistema.name}</h3>  
-                                <p>{sistema.descricao}</p>
+                                <p>{sistema.description}</p>
                                 <br />
                                 <p>mais informações em:</p>
                                 <p><a href={sistema.site} rel="noopener noreferrer" target='_blank'>{sistema.site}</a>.</p>
