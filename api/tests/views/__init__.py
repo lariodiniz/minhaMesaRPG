@@ -1,1 +1,6 @@
 from .user_view_test_case import UserViewTestCase
+from .rpg_system_view_test_case import RPGSystemViewTestCase
+from .tresDeT_vantagens_view_test_case import TresDeTVantagensViewTestCase
+from .tresDeT_desvantagens_view_test_case import TresDeTDesvantagensViewTestCase
+from .tresDeT_magias_view_test_case import TresDeTMagiasViewTestCase
+from .tresDeT_fichas_view_test_case import TresDeTFichasViewTestCase

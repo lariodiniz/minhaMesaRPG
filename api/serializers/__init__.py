@@ -1,1 +1,7 @@
 from .user_serializer import UserSerializer
+from .rpg_system_serializer import RPGSystemSerializer
+from .tresDeT_vantagens_serializer import TresDeTVantagensSerializer
+from .tresDeT_desvantagens_serializer import TresDeTDesvantagensSerializer
+from .tresDeT_magias_serializer import TresDeTMagiasSerializer
+from .tresDeT_fichas_serializer import TresDeTFichasSerializer
+from .personagens_serializer import PersonagemSerializer

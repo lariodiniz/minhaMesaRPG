@@ -1,10 +1,12 @@
 #coding: utf-8
 __author__ = "Lário dos Santos Diniz"
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 
 import os
 import dj_database_url
 import django_heroku
+
+from datetime import timedelta
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -39,6 +41,7 @@ LOCAL_APPS = [
     'accounts',
     'core',
     'api',
+    'tresDeT',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -150,6 +153,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
+}
+
+JWT_AUTH = {
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_EXPIRATION_DELTA': timedelta(days=2),
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'accounts.utils.jwt_response_payload_handler',
 }
 
 try:

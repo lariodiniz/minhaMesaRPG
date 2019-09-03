@@ -21,7 +21,7 @@ class AppLoginOrAppLogof extends Component {
         const { user, validToken } = this.props.auth
 
         if(user && validToken) {
-            axios.defaults.headers.common['authorization'] = user.token
+            axios.defaults.headers.common['authorization'] = "bearer " +user.token
             return <AppLogin>{this.props.children}</AppLogin>
         } else if(!user && !validToken) {
             return <AppLogof>{this.props.children}</AppLogof>

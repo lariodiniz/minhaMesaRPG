@@ -1,0 +1,46 @@
+
+.title3DEt{
+    background-color:rgb(115, 189, 250);
+    padding: 5px;
+    margin-bottom: 10px;
+    color: #FFF;
+    font-weight: bold;
+
+}
+
+.radioButton{
+    margin-left: 5px;
+}
+
+.textDireita{
+    text-align:left
+}
+
+.button_relative{
+    position: absolute;
+    font-size: 2em;
+    border-radius: 30px;
+    height: 60px;
+    width:  60px;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgb(115, 189, 250);
+    border-color: #dbdbdb;
+    color: #fff;
+    cursor: pointer;
+    justify-content: center;
+    text-align: center;
+    padding: 0;
+}
+
+.ficha{
+    border:solid 1px rgb(115, 189, 250);
+}
+
+.topo_ficha{
+    padding-top:0px;
+}
+
+.rodape_ficha{
+    margin-top:10px;
+}
