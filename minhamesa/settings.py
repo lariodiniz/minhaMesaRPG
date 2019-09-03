@@ -1,6 +1,6 @@
 #coding: utf-8
 __author__ = "Lário dos Santos Diniz"
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 
 import os
 import dj_database_url
