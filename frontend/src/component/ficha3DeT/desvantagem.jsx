@@ -28,9 +28,17 @@ class Desdesvantagem extends Component {
     desvantagem_selecionada(item){ 
 
         let state = this.state
-        state.state.modelo.ficha.desvantagens.push(item.desvantagem)            
-        item.selecionada = true;
-        this.props.setaModelo(state.state)
+        let naoTem = true
+        state.state.modelo.ficha.desvantagens.map(i => naoTem = item.desvantagem.id === i.id ? false : true)
+
+        if (naoTem) {
+            state.state.modelo.ficha.desvantagens.push(item.desvantagem)            
+            item.selecionada = true;
+            this.props.setaModelo(state.state)
+        }
+        else{
+            this.props.mensagem(`A vantagem ${item.desvantagem.name} já foi selecionada!`)
+        }        
  
     }
 

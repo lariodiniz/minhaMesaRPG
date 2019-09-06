@@ -6,4 +6,7 @@ from .tresDeT_magias import tresDeT_magias
 from .tresDeT_fichas_create import tresDeT_fichas_create
 from .tresDeT_personagem import tresDeT_personagem
 from .tresDeT_personagem_delete import tresDeT_personagem_delete
+from .tresDeT_vantagens_unicas import tresDeT_vantagens_unicas
+from .tresDeT_especializacoes import tresDeT_especializacoes
+from .tresDeT_pericias import tresDeT_pericias
 from .personagens import personagens

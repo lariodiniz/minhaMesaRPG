@@ -7,7 +7,7 @@ import Icon from '../../common/templates/icon/icon'
 import Panel from './panel'
 import aplicaVantagem from './aplicaVantagem';
 
-class Vantagem extends Component {
+class VantagemUnica extends Component {
 
     constructor(props){
         super(props);
@@ -15,10 +15,11 @@ class Vantagem extends Component {
     }    
 
     componentWillMount(){
-
-        axios.get(`${constantes.API_URL}/api/tresDeT/vantagens/`).then((resp) =>{
+        
+        axios.get(`${constantes.API_URL}/api/tresDeT/vantagensunicas/`).then((resp) =>{
             let vantagens = []
             resp.data.map((item) => {
+                
                 let vantagem = {vantagem:item, visualizar:false, selecionada:false}
                 vantagens.push(vantagem)
             })
@@ -30,10 +31,10 @@ class Vantagem extends Component {
 
         let state = this.state
         let naoTem = true
-        state.state.modelo.ficha.vantagens.map(i => naoTem = item.vantagem.id === i.id ? false : true)
+        state.state.modelo.ficha.vantagensUnicas.map(i => naoTem = item.vantagem.id === i.id ? false : true)
 
         if (naoTem) {
-            state.state.modelo.ficha.vantagens.push(item.vantagem)            
+            state.state.modelo.ficha.vantagensUnicas.push(item.vantagem)            
             item.selecionada = true;
             this.props.setaModelo(state.state)
         }
@@ -152,7 +153,7 @@ class Vantagem extends Component {
         return (        
             <Panel 
                 icon={this.props.icon}
-                titulo='Vantagens'  
+                titulo='Vantagens Unicas'  
                 botaoAnterior={true}
                 state={this.state.state} 
                 passoAnterior={this.props.passoAnterior}
@@ -164,5 +165,5 @@ class Vantagem extends Component {
 }
 
 
-export default Vantagem
+export default VantagemUnica
 

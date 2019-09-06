@@ -53,7 +53,7 @@ class Conceito extends Component {
             titulo='Conceito'
             state={this.state} 
             passoAnterior={this.props.passoAnterior}
-            proximoPasso={this.props.proximoPasso}>
+            proximoPasso={this.proximo.bind(this)}>
             <div className="column is-four-fifths">
                 <Input  id='nome' nome='Nome'  placeholder='escreva o nome' 
                     valor={nome}

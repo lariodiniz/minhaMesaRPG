@@ -19,7 +19,7 @@ class MagiasModelTestCase(TestCase):
 
     def test_there_are_fields(self):
         """test the fields the model"""
-        filds = ['name', 'cost', 'description', 'duration', 'reach']
+        filds = ['name', 'cost', 'description', 'duration', 'reach', 'school']
         for fild in filds:
             self.assertTrue(fild in dir(Magias),
                             'Class Magias does not have the field {}'.format(fild))

@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import axios from 'axios'
 import { constantes } from '../../constants'
 import { NavLink } from 'react-router-dom'
+import If from '../../common/utils/if'
 
 import Button from '../../common/templates/button/button'
-
-
+//import './ficha3DeT.css'
 
 
 class MostraFicha extends Component {
@@ -20,39 +19,100 @@ class MostraFicha extends Component {
         this.setState(this.props.state)        
     }
 
+    render_list(lista, filtrar){
+        let publico = this.props.tipo === "PUBLIC"
+        if (filtrar){
+            return lista.map((item) =>{  
+                if (item.name.indexOf(filtrar) !== -1){return  (<div key={item.name+item.id} className='level is-small'>
+                                                                    <p >
+                                                                        {item.name} 
+                                                                        <If test={!publico}>
+                                                                            <button onClick={() => this.remove_item(lista, item)} className='button is-warning is-pulled-right is-small'>-</button>
+                                                                        </If>
+                                                                    </p>
+                                                                </div>)}
+                else{return  (<div key={item.name+item.id} className='level is-small'>
+                                    <p >
+                                        {(item.name+' ('+item.cost+')')} 
+                                        <If test={!publico}>
+                                            <button onClick={() => this.remove_item(lista, item)} className='button is-warning is-pulled-right is-small'>-</button>
+                                        </If>
+                                    </p>
+                                </div>)}})
+        }
+        else{
+            return lista.map(item => (<div key={item.name+item.id} className='level is-small'>
+                                            <p >
+                                                {(item.name+' ('+item.cost+')')} 
+                                                <If test={!publico}>
+                                                    <button onClick={() => this.remove_item(lista, item)} className='button is-warning is-pulled-right is-small'>-</button>
+                                                </If>
+                                            </p>
+                                        </div>))
+        }
+        
+    }
+
+    remove_item(lista, item){
+        
+        lista.splice(lista.indexOf(item), 1)        
+        let state = { ...this.props.state }
+        this.setState(state) 
+    }
+
+    render_vantagens_unicas(){
+        let vantagensUnicas = this.state.modelo.ficha.vantagensUnicas ? this.state.modelo.ficha.vantagensUnicas : []
+        return this.render_list(vantagensUnicas)
+    }
+
     render_vantagens(){
         let vantagens = this.state.modelo.ficha.vantagens ? this.state.modelo.ficha.vantagens : []
-        return vantagens.map((vantagem) =>{            
-            return  (
-                <p key={vantagem.id}>{(vantagem.name+' ('+vantagem.cost+')')}</p>
-                )
-            })
+        return this.render_list(vantagens)
+    }
+
+    render_pericias(){
+
+        let pericias = this.state.modelo.ficha.pericias ? this.state.modelo.ficha.pericias : []
+        return this.render_list(pericias, 'Especialização')
     }
 
     render_desvantagens(){
         let desvantagens = this.state.modelo.ficha.desvantagens ? this.state.modelo.ficha.desvantagens : []
-        
-        return desvantagens.map((desvantagem) =>{            
-            return  (
-                <p key={desvantagem.id}>{(desvantagem.name+' ('+desvantagem.cost+')')}</p>
-                )
-            })
+        return this.render_list(desvantagens)
     }   
     
     render_magias(){
+        let publico = this.props.tipo === "PUBLIC"
         let magias = this.state.modelo.ficha.magiasConhecidas ? this.state.modelo.ficha.magiasConhecidas : []
-        
-        return magias.map((magia) =>{            
-            return  (
-                <p key={magia.id}>{(magia.name)}</p>
-                )
-            })
+        return magias.map(magia =>(
+            <div key={magia.name+magia.id} className='level'>
+            <p >
+                {magia.name} 
+                <If test={!publico}>
+                    <button onClick={() => this.remove_item(magias, magia)} className='button is-warning is-pulled-right is-small'>-</button>
+                </If>
+            </p>
+        </div>))
     }
 
     acaoFicha(){
         let verbo = this.props.tipo === "INSERT" ? 'post' : 'put'
-        const { user } = this.props.auth
-        
+        const user = this.props.user
+        let pericias = []
+        let especializacao = []
+
+        let p = this.state.modelo.ficha.pericias ? this.state.modelo.ficha.pericias : []
+
+        p.map((item) =>{  
+            if (item.name.indexOf('Especialização') !== -1){
+                let i ={
+                    id: item.id.replace('Esp', ''),
+                    name: item.name.replace('Especialização - ', '')
+                }    
+                especializacao.push(i)
+            }
+            else{pericias.push(item)}})
+
         let data = 	{
             "name": this.state.modelo.ficha.nome, 
             "points": this.state.modelo.ficha.pontos, 
@@ -65,11 +125,14 @@ class MostraFicha extends Component {
             "magic_points": this.state.modelo.ficha.caracteristicas.pontosDeMagia, 
             "benefits":this.state.modelo.ficha.vantagens, 
             "disadvantages":this.state.modelo.ficha.desvantagens,
+            "expertise": pericias,
+            "specializations": especializacao,
+            "unique_benefits": this.state.modelo.ficha.vantagensUnicas,
             "damage_types":this.state.modelo.ficha.tiposDeDano ===''?'não definido':this.state.modelo.ficha.tiposDeDano, 
             "magic":this.state.modelo.ficha.magiasConhecidas,
             "items":this.state.modelo.ficha.dinheiroEItens ===''?'não definido':this.state.modelo.ficha.dinheiroEItens,  
             "story":this.state.modelo.ficha.Historia ===''?'não definido':this.state.modelo.ficha.Historia,  
-            "user":user.user_id, 
+            "user":user, 
             "system":this.state.modelo.sistemaId, 
             "experience_points": this.state.modelo.ficha.caracteristicas.pontosDeExperiencia
             }
@@ -79,6 +142,7 @@ class MostraFicha extends Component {
         })
         .catch( (e) => {
             console.log(e)
+            console.log(e.data)
             
         })
 
@@ -87,27 +151,33 @@ class MostraFicha extends Component {
 
     render_rodape(){
 
+        let publico = this.props.tipo === "PUBLIC"
+
         let texto = this.props.tipo === "INSERT" ? 'Cadastrar' : 'Alterar'
 
         if (this.props.tipo){
             return (
-                <React.Fragment>
-                    <div className="section">
-                        <div className="columns">
-                            <div className="column">
-                                <Button
-                                    classes="is-primary is-rounded is-pulled-right"
-                                    buttonText={texto} click={() => this.acaoFicha()}/>
+                <If test={!publico}>
+                    <React.Fragment>
+                        <div className="section">
+                            <div className="columns">
+                                <div className="column">
+                                    <Button
+                                        classes="is-primary is-rounded is-pulled-right"
+                                        buttonText={texto} click={() => this.acaoFicha()}/>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </React.Fragment>
+                    </React.Fragment>
+                </If>
             )
         }
         
     }
     
     render(){
+        let publico = this.props.tipo === "PUBLIC"
+
         return (
             <React.Fragment>
             <div className="container ficha topo_ficha">
@@ -189,7 +259,9 @@ class MostraFicha extends Component {
                                     <h2 className="title3DEt">Vantagens</h2>
                                     <div className="columns">
                                         <div className="column">
+                                            {this.render_vantagens_unicas()}
                                             {this.render_vantagens()}
+                                            {this.render_pericias()}
                                         </div>
                                     </div>                                                    
                                 </div>                                                
@@ -253,14 +325,14 @@ class MostraFicha extends Component {
                 
                 {this.render_rodape()}
             </div> 
+            <If test={!publico}>
+                <NavLink id='button_dashboard' to={`/Dashboard/`} className="button is-invisible">Dashboard</NavLink>
+            </If>
             
-            <NavLink id='button_dashboard' to={`/Dashboard/`} className="button is-invisible">Dashboard</NavLink>
             </React.Fragment> 
         )
     }
 
 }
 
-
-const mapStateToProps = state => ({ auth: state.auth })
-export default connect(mapStateToProps, null)(MostraFicha)
+export default MostraFicha

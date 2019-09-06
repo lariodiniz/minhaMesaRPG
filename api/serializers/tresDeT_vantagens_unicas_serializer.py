@@ -2,11 +2,11 @@
 __author__ = "Lário dos Santos Diniz"
 
 from rest_framework import serializers
-from tresDeT.models import Desvantagens
+from tresDeT.models import VantagensUnicas
 
-class TresDeTDesvantagensSerializer(serializers.ModelSerializer):
+class TresDeTVantagensUnicasSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Desvantagens
+        model = VantagensUnicas
         fields = ['id','name', 'cost', 'description', 'page', 'book']
 
     book = serializers.StringRelatedField()

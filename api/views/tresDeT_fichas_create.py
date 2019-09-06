@@ -12,11 +12,15 @@ class TresDeTFichasCreateView(APIView):
     permission_classes = (AllowAny,)
 
     def post(self, request, format='json'):  
+        
         serializer = TresDeTFichasSerializer(data=request.data)
+        
         if serializer.is_valid():
             ficha = serializer.save()
             if ficha:
-                return Response(serializer.data, status=status.HTTP_201_CREATED)        
+                return Response(serializer.data, status=status.HTTP_201_CREATED)  
+        
+        print(serializer.errors)      
         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 tresDeT_fichas_create = TresDeTFichasCreateView.as_view()
