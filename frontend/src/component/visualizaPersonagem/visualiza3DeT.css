@@ -36,7 +36,7 @@
 }
 
 #grupo_body{
-    position: relative;   
+    position: relative;
     
     
 }
@@ -44,15 +44,16 @@
 #grupo_mostrar .grupo{
     position: absolute;
     width: 100%;
-    
 }
 
 
 .grupo_panel_body{
     display: block;
     background-color: #FFF;
-    padding: 20px;
-
+    width: 100%;
+    height: 25em;
+    overflow: auto;
+    
 }
 
 #grupo_mostrar .foote{
@@ -63,4 +64,9 @@
 
 .fot{
     padding: 10px;
+}
+
+.tamA4a{
+    height: 295cm;
+    width: 210cm;
 }

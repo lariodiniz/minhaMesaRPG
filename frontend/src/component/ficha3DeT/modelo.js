@@ -16,6 +16,8 @@ export const modelo = {
             pontosDeExperiencia:0
         },
         vantagens: [],
+        vantagensUnicas: [],
+        pericias: [],
         desvantagens: [],
         tiposDeDano: '',
         magiasConhecidas: [],

@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Button from '../../common/templates/button/button'
 import Icon from '../../common/templates/icon/icon'
 import Conceito from './conceito'
 import Caracteristicas from './caracteristicas'
 import Vantagens from './vantagem'
+import VantagensUnica from './vantagemUnica'
 import Desvantagens from './desvantagem'
 import Magias from './magias'
+import Pericias from './pericias'
 import MostraFicha from './mostraFicha'
 import ToquesFinais from './toquesFinais'
 import If from '../../common/utils/if'
@@ -16,9 +19,11 @@ import './ficha3DeT.css'
 
 const ICONES = [
     'book',
+    'person-add',
     'body',
     'remove-circle',
     'add-circle',
+    'ribbon',
     'color-wand',
     'checkmark'
 ]
@@ -66,9 +71,8 @@ class Ficha3DeT extends Component {
                     mensagem={this.define_mensagem.bind(this)} 
                     setaModelo={this.setaModelo.bind(this)}
                 />
-                
             case 1:
-                return <Caracteristicas 
+                return <VantagensUnica
                         icon={ICONES[passo]}
                         state={this.state} 
                         proximoPasso={this.proximo_passo.bind(this)} 
@@ -78,7 +82,7 @@ class Ficha3DeT extends Component {
                             
                     />
             case 2:
-                return <Desvantagens 
+                return <Caracteristicas 
                         icon={ICONES[passo]}
                         state={this.state} 
                         proximoPasso={this.proximo_passo.bind(this)} 
@@ -88,7 +92,7 @@ class Ficha3DeT extends Component {
                             
                     />
             case 3:
-                return <Vantagens 
+                return <Desvantagens 
                         icon={ICONES[passo]}
                         state={this.state} 
                         proximoPasso={this.proximo_passo.bind(this)} 
@@ -98,7 +102,7 @@ class Ficha3DeT extends Component {
                             
                     />
             case 4:
-                return <Magias 
+                return <Vantagens 
                         icon={ICONES[passo]}
                         state={this.state} 
                         proximoPasso={this.proximo_passo.bind(this)} 
@@ -108,6 +112,26 @@ class Ficha3DeT extends Component {
                             
                     />
             case 5:
+                return <Pericias 
+                        icon={ICONES[passo]}
+                        state={this.state} 
+                        proximoPasso={this.proximo_passo.bind(this)} 
+                        passoAnterior={this.passo_anterior.bind(this)} 
+                        mensagem={this.define_mensagem.bind(this)} 
+                        setaModelo={this.setaModelo.bind(this)}
+                            
+                    />                    
+            case 6:
+                return <Magias 
+                        icon={ICONES[passo]}
+                        state={this.state} 
+                        proximoPasso={this.proximo_passo.bind(this)} 
+                        passoAnterior={this.passo_anterior.bind(this)} 
+                        mensagem={this.define_mensagem.bind(this)} 
+                        setaModelo={this.setaModelo.bind(this)}
+                            
+                    />
+            case 7:
                 return <ToquesFinais 
                         icon={ICONES[passo]}
                         state={this.state} 
@@ -118,7 +142,8 @@ class Ficha3DeT extends Component {
                             
                     />
             default:
-                return <MostraFicha state={this.state} tipo='INSERT'/>
+                const { user } = this.props.auth
+                return <MostraFicha state={this.state} tipo='INSERT' user={user.user_id}/>
           } 
     }
 
@@ -204,7 +229,16 @@ class Ficha3DeT extends Component {
                                     click={()=> {this.definePasso(5); this.some_modal()}} >
                                     <Icon icon={ICONES[5]}/>
                                 </Button>
-                                
+                                <Button 
+                                    classes='is-info' 
+                                    click={()=> {this.definePasso(6); this.some_modal()}} >
+                                    <Icon icon={ICONES[6]}/>
+                                </Button>
+                                <Button 
+                                    classes='is-info' 
+                                    click={()=> {this.definePasso(7); this.some_modal()}} >
+                                    <Icon icon={ICONES[7]}/>
+                                </Button>
                         </header>
                         <section className="modal-card-body">
                             <MostraFicha state={this.state} />
@@ -224,7 +258,7 @@ class Ficha3DeT extends Component {
                 <React.Fragment>
                     <section className='section'>
                         {this.render_mensagem()}
-                        <If test={this.state.modelo.passo < 6}>
+                        <If test={this.state.modelo.passo < 8}>
                             <h1 className="title title3DEt">{`3D&T`}</h1>
                         </If>
                         <div className="columns">
@@ -241,4 +275,5 @@ class Ficha3DeT extends Component {
     }
 }
 
-export default Ficha3DeT
+const mapStateToProps = state => ({ auth: state.auth })
+export default connect(mapStateToProps, null)(Ficha3DeT)

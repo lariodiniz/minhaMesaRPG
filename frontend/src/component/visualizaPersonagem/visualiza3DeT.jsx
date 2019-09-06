@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
-
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf'
 import Button from '../../common/templates/button/button'
 import Icon from '../../common/templates/icon/icon'
 import Input from '../../common/templates/input/input'
 import If from '../../common/utils/if'
+import MostraFicha3DeT from '../ficha3DeT/mostraFicha'
+import { modelo as modelo3DeT } from '../ficha3DeT/modelo'
+import { renderToString } from "react-dom/server";
 import './visualiza3DeT.css'
 
 class Visualiza3DeT extends Component {
@@ -79,32 +83,34 @@ class Visualiza3DeT extends Component {
                 <div className="grupo_panel">
                     <p className=" title grupo_panel_title">Caracteristicas</p>                    
                     <div className="grupo_panel_body">
-                        <div className="columns is-mobile">
-                            <div className="column area">
-                                <p><strong>FOR: </strong> {'0'+this.state.force}</p>
+                        <div className='section'>
+                            <div className="columns is-mobile">
+                                <div className="column area">
+                                    <p><strong>FOR: </strong> {'0'+this.state.force}</p>
+                                </div>
+                                <div className="column area">
+                                    <p><strong>HAB: </strong> {'0'+this.state.abiliity}</p>
+                                </div>
+                                <div className="column area">
+                                    <p><strong>RES: </strong> {'0'+this.state.resistance}</p>
+                                </div>
+                                <div className="column area">
+                                    <p><strong>ARM: </strong> {'0'+this.state.armor}</p>
+                                </div>
+                                <div className="column area">
+                                    <p><strong>PDF: </strong> {'0'+this.state.fire_power}</p>
+                                </div>
                             </div>
-                            <div className="column area">
-                                <p><strong>HAB: </strong> {'0'+this.state.abiliity}</p>
-                            </div>
-                            <div className="column area">
-                                <p><strong>RES: </strong> {'0'+this.state.resistance}</p>
-                            </div>
-                            <div className="column area">
-                                <p><strong>ARM: </strong> {'0'+this.state.armor}</p>
-                            </div>
-                            <div className="column area">
-                                <p><strong>PDF: </strong> {'0'+this.state.fire_power}</p>
-                            </div>
-                        </div>
-                        <div className="columns">
-                            <div className="column">
-                                <p><strong>Tipos de dano: </strong> {this.state.damage_types}</p>
-                            </div>
-                            <div className="column">
-                                <p><strong>Itens: </strong> {this.state.items}</p>
-                            </div>
-                            <div className="column area">
-                                <p><strong>História: </strong> {this.state.story}</p>
+                            <div className="columns">
+                                <div className="column">
+                                    <p><strong>Tipos de dano: </strong> {this.state.damage_types}</p>
+                                </div>
+                                <div className="column">
+                                    <p><strong>Itens: </strong> {this.state.items}</p>
+                                </div>
+                                <div className="column area">
+                                    <p><strong>História: </strong> {this.state.story}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -113,6 +119,21 @@ class Visualiza3DeT extends Component {
     }
 
 
+    render_item(lista){
+        
+        return lista.map(
+            item =>(
+                <div key={item.id} className="list-item">
+                    <div className='container'>
+                        <p><strong>{item.name}</strong></p>
+                        <p><span >{item.description}</span></p>
+                        </div>
+                    <div className='container'>
+                        <p className='is-italic'><span >Pagina {item.page} do livro {item.book}</span></p>
+                    </div>
+                </div>
+        ))
+    }
 
     render_lista(title, render){
         return (<div className="grupo_panel">
@@ -128,12 +149,7 @@ class Visualiza3DeT extends Component {
 
     render_vantagem(){
         let vantagens = this.state.benefits ? this.state.benefits : []
-        return vantagens.map(
-            (vantagem) => <div key={vantagem.id} className="list-item">
-                            <p><strong>{vantagem.name}</strong></p>
-                            <p className='is-italic'><span >{vantagem.description}</span></p>
-                        </div>
-        ) 
+        return this.render_item(vantagens)
     }
     
     render_vantagens(){
@@ -142,12 +158,7 @@ class Visualiza3DeT extends Component {
 
     render_desvantagem(){
         let desvantagens = this.state.disadvantages ? this.state.disadvantages : []
-        return desvantagens.map(
-            (desvantagem) => <div key={desvantagem.id} className="list-item">
-                                <p><strong>{desvantagem.name}</strong></p>
-                                <p className='is-italic'><span >{desvantagem.description}</span></p>
-                            </div>
-        ) 
+        return this.render_item(desvantagens)
     }
 
     render_desvantagens(){
@@ -157,10 +168,27 @@ class Visualiza3DeT extends Component {
     render_magia(){
         let magias = this.state.magic ? this.state.magic : []
         return magias.map(
-            (magia) => <div key={magia.id} className="list-item">
-                                <p><strong>{magia.name}</strong></p>
-                                <p className='is-italic'><span >{magia.description}</span></p>
-                            </div>
+            (magia) => {
+                return (
+                    <div key={magia.id} className="list-item">
+                    <div className='container'>
+                        <p><strong>{magia.name}</strong></p>
+                    </div>
+                    <div className='container'>
+                        <p><span className='is-pulled-left'>{magia.cost}</span> 
+                            <span className='is-pulled-right'>{magia.duration}</span>
+                        </p>
+                    </div>
+                    <br />
+                    <div className='container'>
+                        <p><span >{magia.description}</span></p>
+                    </div>
+                    <div className='container'>
+                        <p className='is-italic'><span >Pagina {magia.page} do livro {magia.book}</span></p>
+                    </div>
+                </div>
+                            
+                            )}
         ) 
     }
 
@@ -200,6 +228,104 @@ class Visualiza3DeT extends Component {
             
         )
     }    
+
+    render_ficha(_modelo){
+        return (<div className='tamA4'>
+                    <MostraFicha3DeT state={{modelo: _modelo}} tipo='PUBLIC'/>
+                </div>)
+    }
+
+    geraPDF(){
+
+        let _modelo= JSON.parse(JSON.stringify(modelo3DeT))
+
+        let pericias = this.state.expertise
+        this.state.specializations.map(item => pericias.push({id:'ESP'+item.id, name:'Especialização - '+item.name}))
+
+        _modelo.sistemaId = this.state.system
+        _modelo.ficha.nome = this.state.name
+        _modelo.ficha.pontos = this.state.points
+        _modelo.ficha.caracteristicas.forca = this.state.force
+        _modelo.ficha.caracteristicas.habilidade = this.state.abiliity
+        _modelo.ficha.caracteristicas.resistencia = this.state.resistance
+        _modelo.ficha.caracteristicas.armadura = this.state.armor
+        _modelo.ficha.caracteristicas.poderDeFoco = this.state.fire_power
+        _modelo.ficha.caracteristicas.pontosDeVida = this.state.health_points
+        _modelo.ficha.caracteristicas.pontosDeMagia = this.state.magic_points
+        _modelo.ficha.caracteristicas.pontosDeExperiencia = this.state.experience_points
+        _modelo.ficha.vantagens = this.state.benefits
+        _modelo.ficha.desvantagens = this.state.disadvantages
+        _modelo.ficha.vantagensUnicas = this.state.unique_benefits
+        _modelo.ficha.pericias = pericias
+        _modelo.ficha.tiposDeDano = this.state.damage_types
+        _modelo.ficha.magiasConhecidas = this.state.magic
+        _modelo.ficha.dinheiroEItens = this.state.items
+        _modelo.ficha.Historia = this.state.story
+
+        let div = document.createElement("div");
+        div.innerHTML = renderToString(this.render_ficha(_modelo))
+        document.body.appendChild(div)
+        html2canvas(div).then(canvas => {
+            
+            let imgData = canvas.toDataURL('image/jpeg');
+            let imgWidth = 210; 
+            let pageHeight = 295;  
+            let imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+            let doc = new jsPDF('p', 'mm');
+            let position = 1;
+            
+            doc.addImage(imgData, 'PNG', 1, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight; 
+            
+            while (heightLeft >= 0) {
+              position = heightLeft - imgHeight;
+              doc.addPage();
+              doc.addImage(imgData, 'PNG', 1, position, imgWidth, imgHeight);
+              heightLeft -= pageHeight;
+            }
+            doc.save(_modelo.ficha.nome+'.pdf');
+            document.body.removeChild(div)
+        });
+
+
+
+
+
+
+        /*let doc = new jsPDF('portrait', 'pt', 'a4')
+
+        doc.fromHTML(
+            renderToString(<div className='section'>
+                <div className='columns'>
+                    <div className='column'>
+                    <MostraFicha3DeT state={{modelo: _modelo}} tipo='PUBLIC'/>
+                    </div>
+                </div>
+            </div>)
+            )
+
+        doc.save(_modelo.ficha.nome+'.pdf')*/
+
+
+        /*
+                let margins = { top: 40, bottom: 60, left: 40, width: 1000};
+        doc.fromHTML(
+            <div className='section'>
+                <div className='columns'>
+                    <div className='column'>
+                    <MostraFicha3DeT state={{modelo: _modelo}} tipo='PUBLIC'/>
+                    </div>
+                </div>
+            </div>
+            ,
+                       margins.left, // x coord
+                       margins.top, { pagesplit: true },
+                       function(a){
+                            doc.save(_modelo.ficha.nome+'.pdf');
+                    });
+                    */
+    }
 
     render() {
         let temMagia = this.state.magic.length > 0
@@ -285,14 +411,19 @@ class Visualiza3DeT extends Component {
                                 
                             </ul>
                             <div className='fot'>
-                                <div className='columns'> 
-                                    <div className='column is-half'> 
+                                <div className='columns is-mobile'> 
+                                    <div className='column'> 
                                         <NavLink to={`/Apaga/Ficha/3deT/${this.state.name}/${this.state.id}`} className="button is-danger">
-                                        Apagar</NavLink>
+                                            Apagar
+                                        </NavLink>
+                                    </div>
+                                    <div className='column'> 
+                                        <button onClick={()=>this.geraPDF()} className="button is-primary">
+                                            PDF
+                                        </button>
+                                    </div>                                    
                                 </div>
-
                             </div>
-                    </div>
                         </nav>
                         <div id='grupo_mostrar' className=' is-invisible'>
                             <div id='grupo_body' >

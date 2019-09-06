@@ -5,9 +5,8 @@ import Input from '../../common/templates/input/input'
 import Button from '../../common/templates/button/button'
 import Icon from '../../common/templates/icon/icon'
 import Panel from './panel'
-import aplicaVantagem from './aplicaVantagem';
 
-class Vantagem extends Component {
+class Pericias extends Component {
 
     constructor(props){
         super(props);
@@ -16,29 +15,45 @@ class Vantagem extends Component {
 
     componentWillMount(){
 
-        axios.get(`${constantes.API_URL}/api/tresDeT/vantagens/`).then((resp) =>{
+        axios.get(`${constantes.API_URL}/api/tresDeT/pericias/`).then((resp) =>{
             let vantagens = []
             resp.data.map((item) => {
                 let vantagem = {vantagem:item, visualizar:false, selecionada:false}
                 vantagens.push(vantagem)
+                return null
             })
-            this.setState( {...this.state, vantagens:vantagens})
+            axios.get(`${constantes.API_URL}/api/tresDeT/especializacoes/`).then((resp) =>{
+                resp.data.map((item) => {
+                    let i = {
+                        id: 'Esp'+item.id,
+                        name: 'Especialização - '+item.name,
+                        description: item.description
+                    }
+                    
+                    let vantagem = {vantagem:i, visualizar:false, selecionada:false}
+                    vantagens.push(vantagem)
+                    return null
+                })
+                this.setState( {...this.state, vantagens:vantagens})
+            })
         })
+
+        
     }
 
     vantagem_selecionada(item){ 
 
         let state = this.state
         let naoTem = true
-        state.state.modelo.ficha.vantagens.map(i => naoTem = item.vantagem.id === i.id ? false : true)
+        state.state.modelo.ficha.pericias.map(i => naoTem = item.vantagem.id === i.id ? false : true)
 
         if (naoTem) {
-            state.state.modelo.ficha.vantagens.push(item.vantagem)            
+            state.state.modelo.ficha.pericias.push(item.vantagem)            
             item.selecionada = true;
             this.props.setaModelo(state.state)
         }
         else{
-            this.props.mensagem(`A vantagem ${item.vantagem.name} já foi selecionada!`)
+            this.props.mensagem(`A pericia ${item.vantagem.name} já foi selecionada!`)
         }
     }
 
@@ -152,7 +167,7 @@ class Vantagem extends Component {
         return (        
             <Panel 
                 icon={this.props.icon}
-                titulo='Vantagens'  
+                titulo='Pericias'  
                 botaoAnterior={true}
                 state={this.state.state} 
                 passoAnterior={this.props.passoAnterior}
@@ -164,5 +179,5 @@ class Vantagem extends Component {
 }
 
 
-export default Vantagem
+export default Pericias
 

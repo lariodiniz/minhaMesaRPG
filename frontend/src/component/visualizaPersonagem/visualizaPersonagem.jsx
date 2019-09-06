@@ -41,9 +41,13 @@ class VisualizaPersonagens extends Component {
     }
 
     render_public(){
-        let system = this.props.match.params.system
+        let system = this.props.match.params.system        
         if (system === '3deT') {
             let _modelo= JSON.parse(JSON.stringify(modelo3DeT))
+
+            let pericias = this.state.ficha.expertise
+            this.state.ficha.specializations.map(item => pericias.push({id:'ESP'+item.id, name:'Especialização - '+item.name}))
+
             _modelo.sistemaId = this.state.ficha.system
             _modelo.ficha.nome = this.state.ficha.name
             _modelo.ficha.pontos = this.state.ficha.points
@@ -57,6 +61,8 @@ class VisualizaPersonagens extends Component {
             _modelo.ficha.caracteristicas.pontosDeExperiencia = this.state.ficha.experience_points
             _modelo.ficha.vantagens = this.state.ficha.benefits
             _modelo.ficha.desvantagens = this.state.ficha.disadvantages
+            _modelo.ficha.vantagensUnicas = this.state.ficha.unique_benefits
+            _modelo.ficha.pericias = pericias
             _modelo.ficha.tiposDeDano = this.state.ficha.damage_types
             _modelo.ficha.magiasConhecidas = this.state.ficha.magic
             _modelo.ficha.dinheiroEItens = this.state.ficha.items
@@ -65,7 +71,7 @@ class VisualizaPersonagens extends Component {
                 <div className='section'>
                     <div className='columns'>
                         <div className='column'>
-                        <MostraFicha3DeT state={{modelo: _modelo}}/>
+                        <MostraFicha3DeT state={{modelo: _modelo}} tipo='PUBLIC'/>
                         </div>
                     </div>
                     

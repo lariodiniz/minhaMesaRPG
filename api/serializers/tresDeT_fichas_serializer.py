@@ -3,9 +3,13 @@ __author__ = "Lário dos Santos Diniz"
 
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
-from tresDeT.models import Fichas, Vantagens, Desvantagens, Magias
+from tresDeT.models import (Fichas, Vantagens, Desvantagens, Magias, 
+    Pericias, VantagensUnicas, Especializacoes)
 from api.serializers import (TresDeTVantagensSerializer, 
-    TresDeTDesvantagensSerializer, TresDeTMagiasSerializer)
+    TresDeTDesvantagensSerializer, TresDeTMagiasSerializer, 
+    TresDeTVantagensUnicasSerializer, TresDeTEspecializacoesSerializer,
+    TresDeTPericiasSerializer)
+
 from api.models import RPGSystem
 
 from accounts.models import User
@@ -16,15 +20,20 @@ class TresDeTFichasSerializer(serializers.ModelSerializer):
         model = Fichas
         fields = ['id', 'name', 'points', 'force', 'abiliity', 'resistance', 'armor', 'fire_power',
                  'health_points', 'magic_points', 'benefits', 'disadvantages', 'damage_types',
-                 'magic', 'items', 'story', 'user', 'system', 'experience_points']
+                 'magic', 'items', 'story', 'user', 'system', 'experience_points', 'unique_benefits', 'expertise', 'specializations']
 
     benefits = TresDeTVantagensSerializer(many=True)
+    unique_benefits = TresDeTVantagensUnicasSerializer(many=True)
+    expertise = TresDeTPericiasSerializer(many=True)
     disadvantages = TresDeTDesvantagensSerializer(many=True)
     magic = TresDeTMagiasSerializer(many=True)
+    specializations = TresDeTEspecializacoesSerializer(many=True)
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     system = serializers.PrimaryKeyRelatedField(queryset=RPGSystem.objects.all())
     
     def create(self, validated_data):
+        
+        print(validated_data)
         
         ficha = Fichas()
         ficha.name = validated_data['name']
@@ -41,10 +50,6 @@ class TresDeTFichasSerializer(serializers.ModelSerializer):
         ficha.items = validated_data['items']
         ficha.story = validated_data['story']
     
-        #ficha.benefits = validated_data['benefits']
-        #ficha.disadvantages = validated_data['disadvantages']
-        #ficha.magic = validated_data['magic']
-        
         ficha.user = validated_data['user']
         ficha.system = validated_data['system']
         ficha.save()
@@ -61,6 +66,18 @@ class TresDeTFichasSerializer(serializers.ModelSerializer):
         for magic in validated_data['magic']: 
             magias = Magias.objects.get(name=magic['name'], cost=magic['cost'])
             ficha.magic.add(magias)
-            
+
+
+        for unique_benefit in validated_data['unique_benefits']: 
+            vantagem_unica = VantagensUnicas.objects.get(name=unique_benefit['name'], cost=unique_benefit['cost'])
+            ficha.unique_benefits.add(vantagem_unica)
+
+        for expertise in validated_data['expertise']: 
+            pericia = Pericias.objects.get(name=expertise['name'], cost=expertise['cost'])
+            ficha.expertise.add(pericia)
+        
+        for specialization in validated_data['specializations']: 
+            especializacao = Especializacoes.objects.get(name=specialization['name'])
+            ficha.specializations.add(especializacao)
         
         return ficha
