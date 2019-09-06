@@ -6,7 +6,8 @@ from django.contrib import admin
 
 from .models import (Vantagens, Desvantagens, Magias, Fichas, 
                       Livros, AlcancesMagia, DuracoesMagia, EscolasMagia, 
-                      Especializacoes, Pericias, VantagensUnicas, BonusCaracteristicas)
+                      Especializacoes, Pericias, VantagensUnicas, BonusCaracteristicas,
+                      Acao)
 
 class VantagensAdmin(admin.ModelAdmin):
 
@@ -60,3 +61,4 @@ admin.site.register(AlcancesMagia)
 admin.site.register(DuracoesMagia)
 admin.site.register(EscolasMagia)
 admin.site.register(BonusCaracteristicas)
+admin.site.register(Acao)
